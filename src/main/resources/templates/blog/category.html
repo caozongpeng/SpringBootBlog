@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="blog/layout" th:with="title='分类 |',active='category'">
+<header th:replace="blog/layout::headerFragment(${title},${active})"></header>
+<body>
+<div layout:fragment="content">
+    <div class="content-wrap">
+        <div id="content" class="content">
+            <div id="posts" class="posts-expand">
+                <div class="category-all-page">
+                    <header class="post-header" style="opacity: 1; display: block; transform: translateY(0px);">
+                        <h1 class="post-title" itemprop="name headline">分类</h1>
+                    </header>
+                    <div class="category-all-title">
+                        目前共计 7 个分类
+                    </div>
+                    <div class="category-all">
+                        <ul class="category-list">
+                            <li class="category-list-item">
+                                <a class="category-list-link"
+                                   href="{% url 'blog:category_detail' category.name %}">django</a>
+                                <span class="category-list-count">5</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

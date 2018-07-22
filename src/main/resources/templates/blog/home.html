@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="blog/layout" th:with="title='',active='home'">
+<header th:replace="blog/layout::headerFragment(${title},${active})"></header>
+<body>
+    <div layout:fragment="content">
+        <div class="content-wrap">
+            <div id="content" class="content">
+                <section id="posts" class="posts-expand">
+                    <article class="post post-type-normal">
+                        <header class="post-header">
+                            <h1 class="post-title">
+                                <a class="post-title-link" href="">
+                                    python manage.py runserver 的时候发生了什么？
+                                </a>
+                            </h1>
+                            <div class="post-meta">
+                                      <span class="post-time">
+                                        <span class="post-meta-item-icon">
+                                        <i class="fa fa-calendar-o"></i>
+                                      </span>
+                                      <span class="post-meta-item-text">发表于</span>
+                                        <time title="创建于" datetime="">
+                                        2018-07-07
+                                        </time>
+                                      </span>
+                                <span class="post-category"><span class="post-meta-divider">|</span>
+                                            <span class="post-meta-item-icon"><i class="fa fa-folder-o"></i></span>
+                                            <span class="post-meta-item-text">分类于</span>
+                                            <span><a href="" rel="index">
+                                                    <span>django</span>
+                                                  </a>
+                                            </span>
+                                      </span>
+                                <span class="post-comments-count">
+                                            <span class="post-meta-divider">|</span>
+                                            <span class="post-meta-item-icon">
+                                              <i class="fa fa-comment-o"></i>
+                                            </span>
+                                            <a href="#comments">
+                                              <span class="post-comments-count disqus-comment-count"
+                                                    data-disqus-identifier="">5 Comments</span>
+                                            </a>
+                                      </span>
+                                <span id="" class="leancloud_visitors"
+                                      data-flag-title="">
+                                             <span class="post-meta-divider">|</span>
+                                             <span class="post-meta-item-icon">
+                                             <i class="fa fa-eye"></i>
+                                             </span>
+                                             <span class="post-meta-item-text">
+                                                 阅读次数
+                                             </span>
+                                            <span class="leancloud-visitors-count">25</span>
+                                      </span>
+                            </div>
+                        </header>
+
+                        <div class="post-body">
+                            在我们日常用django开发的时候，runserver这个manage命令相信大家一定不陌生, 那么你是否有考虑过,
+                            在命令行输入这个命令的时候到底发生了什么？下面就请跟着我一步一步剖析django的源代码, 看看它到底做了什么…
+                            manage.py经常用django开发的同学对这个文件一定不陌生 ...
+                            <!--noindex-->
+                            <div class="post-button text-center">
+                                <a class="btn" href="" rel="contents">
+                                    阅读全文 »
+                                </a>
+                            </div>
+                            <!--/noindex-->
+                        </div>
+
+                        <footer class="post-footer">
+                            <div class="post-eof"></div>
+                        </footer>
+                    </article>
+                </section>
+                <!--分页-->
+            </div>
+        </div>
+    </div>
+</body>
+</html>

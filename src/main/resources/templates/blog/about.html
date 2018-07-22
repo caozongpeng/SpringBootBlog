@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="blog/layout" th:with="title='关于 |',active='about'">
+<header th:replace="blog/layout::headerFragment(${title},${active})"></header>
+<body>
+<div layout:fragment="content">
+    <div class="content-wrap">
+        <div id="content" class="content">
+            <div id="posts" class="posts-expand">
+                <div class="post-block page" style="opacity: 1; display: block;">
+                    <header class="post-header" style="opacity: 1; display: block; transform: translateY(0px);">
+                        <h1 class="post-title" itemprop="name headline">关于我</h1>
+                    </header>
+                    <div class="post-body" style="opacity: 1; display: block; transform: translateY(0px);">
+                        <ul>
+                            <li>Python开发</li>
+                            <li>Django</li>
+                            <li>Flask</li>
+                            <li>Tornado</li>
+                            <li>喜欢看电影</li>
+                            <li>喜欢跑步</li>
+                            <li><p>喜欢动漫</p>
+                                <blockquote>
+                                    <p>“人应该努力学习洞察和培养自己内心深处的灵光一现，这远远胜于外面流光溢彩的整个世界。然而，人总会下意识地抛弃自己特有的想法，仅仅因为那是他自己的想法。\<br>——拉尔夫·瓦尔多·爱默生（1803—1882），美国散文家、思想家、诗人”
+                                    </p>
+                                </blockquote>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

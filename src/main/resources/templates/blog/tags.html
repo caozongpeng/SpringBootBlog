@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="blog/layout" th:with="title='标签 |',active='tabs'">
+<header th:replace="blog/layout::headerFragment(${title},${active})"></header>
+<body>
+<div layout:fragment="content">
+    <div class="content-wrap">
+        <div id="content" class="content">
+            <div id="posts" class="posts-expand">
+                <header class="post-header" style="opacity: 1; display: block; transform: translateY(0px);">
+                    <h1 class="post-title" itemprop="name headline">所有标签</h1>
+                </header>
+                <div class="tag-cloud">
+                    <div class="tag-cloud-title">
+                        目前共计 10个标签
+                    </div>
+                    <div class="tag-cloud-tags">
+                        <a href="{% url 'blog:tag_detail' tag.name %}" style="font-size: 12px; color:#ccc">django</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
