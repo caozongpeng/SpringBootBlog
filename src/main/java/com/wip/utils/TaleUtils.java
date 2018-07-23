@@ -26,6 +26,11 @@ public class TaleUtils {
         return (UserDomain) session.getAttribute(WebConst.LOGIN_SESSION_KEY);
     }
 
+    /**
+     * 获取cookie中的用户ID
+     * @param request
+     * @return
+     */
     public static Integer getCookieUid(HttpServletRequest request){
         if (null != request) {
             Cookie cookie = cookieRaw(WebConst.USER_IN_COOKIE,request);
@@ -41,6 +46,12 @@ public class TaleUtils {
         return null;
     }
 
+    /**
+     * 从cookies中获取指定cookie
+     * @param name          名称
+     * @param request       请求
+     * @return  cookie
+     */
     private static Cookie cookieRaw(String name, HttpServletRequest request) {
         Cookie[] servletCookies = request.getCookies();
         if (servletCookies == null) {

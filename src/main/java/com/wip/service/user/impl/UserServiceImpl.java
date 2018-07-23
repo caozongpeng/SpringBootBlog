@@ -10,11 +10,15 @@ import com.wip.dao.UserDao;
 import com.wip.exception.BusinessException;
 import com.wip.model.UserDomain;
 import com.wip.service.user.UserService;
+import com.wip.utils.APIResponse;
 import com.wip.utils.TaleUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * 用户相关Service接口实现
+ */
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -33,5 +37,10 @@ public class UserServiceImpl implements UserService {
         if (null == user)
             throw BusinessException.withErrorCode(ErrorConstant.Auth.USERNAME_PASSWORD_ERROR);
         return user;
+    }
+
+    @Override
+    public UserDomain getUserInfoById(Integer uid) {
+        return userDao.getUserInfoById(uid);
     }
 }

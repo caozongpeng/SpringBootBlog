@@ -4,6 +4,9 @@ import com.wip.model.UserDomain;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+/**
+ * 用户dao层接口
+ */
 @Mapper
 public interface UserDao {
 
@@ -15,5 +18,10 @@ public interface UserDao {
      */
     UserDomain getUserInfoByCond(@Param("username") String username, @Param("password") String password);
 
-
+    /**
+     * 通过用户ID获取用户信息
+     * @param uid
+     * @return
+     */
+    UserDomain getUserInfoById(Integer uid);
 }

@@ -1,8 +1,11 @@
 package com.wip.controller.admin;
 
+import com.wip.constant.LogActions;
 import com.wip.constant.WebConst;
 import com.wip.controller.BaseController;
+import com.wip.exception.BusinessException;
 import com.wip.model.UserDomain;
+import com.wip.service.log.LogService;
 import com.wip.service.user.UserService;
 import com.wip.utils.APIResponse;
 import com.wip.utils.TaleUtils;
@@ -30,6 +33,9 @@ public class AuthController extends BaseController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private LogService logService;
+
 
     @ApiOperation("跳转登录页")
     @GetMapping(value = "/login")
@@ -53,27 +59,39 @@ public class AuthController extends BaseController {
             @ApiParam(name = "remember_me", value = "记住我", required = false)
             @RequestParam(name = "remember_me", required = false)
             String remember_me
-    ){
+    ) {
         Integer error_count = cache.get("login_error_count");
-        System.out.println(TaleUtils.MD5encode("admin123456"));
         try {
-            UserDomain userInfo = userService.login(username,password);
+            // 调用Service登录方法
+            UserDomain userInfo = userService.login(username, password);
+            // 设置用户信息session
             request.getSession().setAttribute(WebConst.LOGIN_SESSION_KEY, userInfo);
+            // 判断是否勾选记住我
             if (StringUtils.isNotBlank(remember_me)) {
                 TaleUtils.setCookie(response, userInfo.getUid());
             }
-
+            // 写入日志
+            logService.addLog(LogActions.LOGIN.getAction(), null, request.getRemoteAddr(), userInfo.getUid());
         } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            error_count = null == error_count ? 1 : error_count + 1;
+            if (error_count > 3) {
+                return APIResponse.fail("您输入密码已经错误超过3次，请10分钟后尝试");
+            }
+            System.out.println(error_count);
+            // 设置缓存为10分钟
+            cache.set("login_error_count", error_count, 10 * 60);
             String msg = "登录失败";
+            if (e instanceof BusinessException) {
+                msg = e.getMessage();
+            } else {
+                LOGGER.error(msg,e);
+            }
             return APIResponse.fail(msg);
         }
-
+        // 返回登录成功信息
         return APIResponse.success();
     }
-
-
-
-
 
 
 }

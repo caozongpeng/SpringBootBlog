@@ -6,6 +6,9 @@
 package com.wip.service.log;
 
 
+/**
+ * 日志相关Service接口
+ */
 public interface LogService {
 
     /**

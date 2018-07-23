@@ -1,7 +1,9 @@
 package com.wip.interceptor;
 
 import com.wip.constant.Types;
+import com.wip.constant.WebConst;
 import com.wip.model.UserDomain;
+import com.wip.service.user.UserService;
 import com.wip.utils.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +24,10 @@ public class BaseInterceptor implements HandlerInterceptor {
     private static final Logger LOGGER = LoggerFactory.getLogger(BaseInterceptor.class);
     private static final String USER_AGENT = "User-Agent";
 
+
+    @Autowired
+    private UserService userService;
+
     @Autowired
     private Commons commons;
 
@@ -34,8 +40,7 @@ public class BaseInterceptor implements HandlerInterceptor {
 
         // 请求URL不包含域名
         String uri = request.getRequestURI();
-//        System.out.println(uri);
-
+        // 日志输出
         LOGGER.info("UserAgent：{}", request.getHeader(USER_AGENT));
         LOGGER.info("用户访问地址：{}，来路地址：{}",uri, IPKit.getIpAddressByRequest1(request));
 
@@ -45,7 +50,8 @@ public class BaseInterceptor implements HandlerInterceptor {
             Integer uid = TaleUtils.getCookieUid(request);
             if (null != uid) {
                 //这里还是有安全隐患,cookie是可以伪造的
-
+                user = userService.getUserInfoById(uid);
+                request.getSession().setAttribute(WebConst.LOGIN_SESSION_KEY, user);
             }
         }
 
@@ -64,9 +70,7 @@ public class BaseInterceptor implements HandlerInterceptor {
             cache.hset(Types.CSRF_TOKEN.getType(), csrf_token, uri,30 * 60);
             request.setAttribute("_csrf_token", csrf_token);
         }
-
-
-
+        // 返回true才会执行postHandle
         return true;
     }
 

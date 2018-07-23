@@ -9,6 +9,9 @@ package com.wip.dao;
 import com.wip.model.LogDomain;
 import org.apache.ibatis.annotations.Mapper;
 
+/**
+ * 日志dao层接口
+ */
 @Mapper
 public interface LogDao {
 

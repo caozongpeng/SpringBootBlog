@@ -7,6 +7,9 @@ package com.wip.service.user;
 
 import com.wip.model.UserDomain;
 
+/**
+ * 用户相关Service接口
+ */
 public interface UserService {
 
     /**
@@ -16,4 +19,12 @@ public interface UserService {
      * @return
      */
     UserDomain login(String username, String password);
+
+    /**
+     * 通过用户ID获取用户信息
+     * @param uid   主键
+     * @return
+     */
+    UserDomain getUserInfoById(Integer uid);
+
 }

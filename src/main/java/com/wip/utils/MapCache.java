@@ -38,6 +38,19 @@ public class MapCache {
         cachePool = new ConcurrentHashMap<>(cacheCount);
     }
 
+
+    /**
+     * 设置一个缓存并带过期时间
+     * @param key       缓存key
+     * @param value     绑在value
+     * @param expired   过期时间，单位为秒
+     */
+    public void set(String key, Object value, long expired) {
+        expired = expired > 0 ? System.currentTimeMillis() / 1000 + expired : expired;
+        CacheObject cacheObject = new CacheObject(key, value, expired);
+        cachePool.put(key,cacheObject);
+    }
+
     /**
      * 设置一个hash缓存
      * @param key
