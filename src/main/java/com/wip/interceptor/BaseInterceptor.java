@@ -1,9 +1,8 @@
 package com.wip.interceptor;
 
+import com.wip.constant.Types;
 import com.wip.model.UserDomain;
-import com.wip.utils.Commons;
-import com.wip.utils.IPKit;
-import com.wip.utils.TaleUtils;
+import com.wip.utils.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +20,13 @@ import javax.servlet.http.HttpServletResponse;
 public class BaseInterceptor implements HandlerInterceptor {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BaseInterceptor.class);
-    private static final String USER_AGENT = "user-agent";
+    private static final String USER_AGENT = "User-Agent";
 
     @Autowired
     private Commons commons;
 
+
+    private MapCache cache = MapCache.single();
 
 
     @Override
@@ -42,16 +43,37 @@ public class BaseInterceptor implements HandlerInterceptor {
         UserDomain user = TaleUtils.getLoginUser(request);
         if (null == user) {
             Integer uid = TaleUtils.getCookieUid(request);
+            if (null != uid) {
+                //这里还是有安全隐患,cookie是可以伪造的
+
+            }
         }
+
+        if (uri.startsWith("/admin") && !uri.startsWith("/admin/login") && null == user
+                && !uri.startsWith("/admin/css") && !uri.startsWith("/admin/images")
+                && !uri.startsWith("/admin/js") && !uri.startsWith("/admin/plugins")
+                && !uri.startsWith("/admin/editormd")) {
+            response.sendRedirect(request.getContextPath() + "/admin/login");
+            return false;
+        }
+
+        // 设置GET请求的token
+        if (request.getMethod().equals("GET")) {
+            String csrf_token = UUID.UU64();
+            // 默认存储30分钟
+            cache.hset(Types.CSRF_TOKEN.getType(), csrf_token, uri,30 * 60);
+            request.setAttribute("_csrf_token", csrf_token);
+        }
+
 
 
         return true;
     }
 
     @Override
-    public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object o, ModelAndView view) throws Exception {
 
-        httpServletRequest.setAttribute("commons",commons);
+        request.setAttribute("commons",commons);
 
     }
 

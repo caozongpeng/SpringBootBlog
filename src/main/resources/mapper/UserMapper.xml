@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wip.dao.UserDao">
+
+    <sql id="BASE_TABLE">
+        t_users
+    </sql>
+
+    <sql id="BASE_COLUMN">
+        uid,username,password,email,homeUrl,screenName,created,activated,logged,groupName
+    </sql>
+
+
+    <select id="getUserInfoByCond" resultType="com.wip.model.UserDomain">
+        SELECT
+          <include refid="BASE_COLUMN"/>
+        FROM
+          <include refid="BASE_TABLE"/>
+        <where>
+            <if test="username != null">
+                AND username = #{username, jdbcType=VARCHAR}
+            </if>
+            <if test="password != null">
+                AND password = #{password, jdbcType=VARCHAR}
+            </if>
+        </where>
+
+    </select>
+
+
+
+</mapper>
