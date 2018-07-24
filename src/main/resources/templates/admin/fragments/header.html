@@ -11,7 +11,15 @@
     <link th:href="@{//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css}" rel="stylesheet"/>
     <link th:href="@{/admin/css/style.min.css}" rel="stylesheet" type="text/css"/>
     <link th:href="@{//cdn.bootcss.com/limonte-sweetalert2/6.4.1/sweetalert2.min.css}" rel="stylesheet"/>
-
+    <style>
+        .username {
+            color: #333;
+            font-size: 15px;
+        }
+        .profile .username:hover {
+            color: rgb(45, 140, 240);
+        }
+    </style>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -44,18 +52,21 @@
                 </div>
 
                 <ul class="nav navbar-nav navbar-right pull-right">
-                    <!--<li class="dropdown">-->
-                        <!--<a th:href="@{index.html}" class="dropdown-toggle profile" data-toggle="dropdown"-->
-                           <!--aria-expanded="true"><img th:src="${commons.gravatar(session.login_user.email)}" alt="user-img"-->
-                                                     <!--class="img-circle"/> </a>-->
-                        <!--<ul class="dropdown-menu">-->
-                            <!--<li><a th:href="@{${commons.site_url()}}" target="_blank"><i class="fa fa-eye"-->
-                                                                                         <!--aria-hidden="true"></i>-->
-                                <!--查看网站</a></li>-->
-                            <!--<li><a th:href="@{/admin/profile}"><i class="fa fa-sun-o"></i> 个人设置</a></li>-->
-                            <!--<li><a th:href="@{/admin/logout}"><i class="fa fa-sign-out"></i> 注销</a></li>-->
-                        <!--</ul>-->
-                    <!--</li>-->
+                    <li class="dropdown">
+                        <a th:href="@{index.html}" class="dropdown-toggle profile" data-toggle="dropdown" aria-expanded="true">
+                            <img th:src="${commons.gravatar(session.login_user.email)}" alt="user-img" class="img-circle"/>
+                            <span class="username" th:text="${session.login_user.username}"></span><span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a th:href="@{${commons.site_url()}}" target="_blank">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>查看网站
+                                </a>
+                            </li>
+                            <li><a th:href="@{/admin/profile}"><i class="fa fa-sun-o"></i> 个人设置</a></li>
+                            <li><a th:href="@{/admin/logout}"><i class="fa fa-sign-out"></i> 注销</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>

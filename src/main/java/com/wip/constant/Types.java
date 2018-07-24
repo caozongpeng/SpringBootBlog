@@ -7,7 +7,7 @@ package com.wip.constant;
  **/
 public enum Types {
 
-
+    CATEGORY("category"),
     CSRF_TOKEN("csrf_token");
 
     private String type;

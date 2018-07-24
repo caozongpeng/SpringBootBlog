@@ -2,8 +2,17 @@ package com.wip.constant;
 
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Component
 public class WebConst {
+
+    /**
+     * 一些网站配置
+     */
+    public static Map<String, String> initConfig = new HashMap<>();
+
 
     /**
      * 用户登录session的key

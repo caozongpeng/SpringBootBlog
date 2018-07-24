@@ -36,6 +36,24 @@
         WHERE
           uid = #{uid, jdbcType=INTEGER}
     </select>
+    <!--更改用户信息-->
+    <update id="updateUserInfo" parameterType="com.wip.model.UserDomain">
+        UPDATE
+          <include refid="BASE_TABLE"/>
+        <set>
+            <if test="password != null">
+                password = #{password, jdbcType=VARCHAR},
+            </if>
+            <if test="screenName != null">
+                screenName = #{screenName, jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email, jdbcType=VARCHAR}
+            </if>
+        </set>
+        WHERE
+          uid = #{uid,jdbcType=INTEGER}
+    </update>
 
 
 </mapper>

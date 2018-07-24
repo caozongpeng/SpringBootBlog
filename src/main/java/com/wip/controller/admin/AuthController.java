@@ -8,11 +8,11 @@ import com.wip.model.UserDomain;
 import com.wip.service.log.LogService;
 import com.wip.service.user.UserService;
 import com.wip.utils.APIResponse;
+import com.wip.utils.GsonUtils;
 import com.wip.utils.TaleUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,8 +20,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 @Api("登录相关接口")
 @Controller
@@ -71,7 +74,7 @@ public class AuthController extends BaseController {
                 TaleUtils.setCookie(response, userInfo.getUid());
             }
             // 写入日志
-            logService.addLog(LogActions.LOGIN.getAction(), null, request.getRemoteAddr(), userInfo.getUid());
+            logService.addLog(LogActions.LOGIN.getAction(), userInfo.getUsername()+"用户", request.getRemoteAddr(), userInfo.getUid());
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
             error_count = null == error_count ? 1 : error_count + 1;
@@ -92,6 +95,26 @@ public class AuthController extends BaseController {
         // 返回登录成功信息
         return APIResponse.success();
     }
+
+    @RequestMapping(value = "/logout")
+    public void logout(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+        // 移除session
+        session.removeAttribute(WebConst.LOGIN_SESSION_KEY);
+        // 设置cookie值和时间为空
+        Cookie cookie = new Cookie(WebConst.USER_IN_COOKIE, "");
+        cookie.setValue(null);
+        cookie.setMaxAge(0);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+        try {
+            // 跳转到登录页面
+            response.sendRedirect("/admin/login");
+        } catch (IOException e) {
+            e.printStackTrace();
+            LOGGER.error("注销失败",e);
+        }
+    }
+
 
 
 }

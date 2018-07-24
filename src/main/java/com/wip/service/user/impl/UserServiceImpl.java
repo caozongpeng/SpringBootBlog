@@ -15,6 +15,7 @@ import com.wip.utils.TaleUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 用户相关Service接口实现
@@ -42,5 +43,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDomain getUserInfoById(Integer uid) {
         return userDao.getUserInfoById(uid);
+    }
+
+    // 开启事务
+    @Transactional
+    @Override
+    public int updateUserInfo(UserDomain user) {
+        if (null == user.getUid())
+            throw BusinessException.withErrorCode("用户编号不能为空");
+        return userDao.updateUserInfo(user);
     }
 }

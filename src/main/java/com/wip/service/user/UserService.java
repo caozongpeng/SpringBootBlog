@@ -27,4 +27,11 @@ public interface UserService {
      */
     UserDomain getUserInfoById(Integer uid);
 
+    /**
+     * 更改用户信息
+     * @param user  user对象
+     * @return
+     */
+    int updateUserInfo(UserDomain user);
+
 }

@@ -24,4 +24,12 @@ public interface UserDao {
      * @return
      */
     UserDomain getUserInfoById(Integer uid);
+
+    /**
+     * 更改用户信息
+     * @param user
+     * @return
+     */
+    int updateUserInfo(UserDomain user);
+
 }

@@ -1,6 +1,8 @@
 package com.wip.controller;
 
+import com.wip.model.UserDomain;
 import com.wip.utils.MapCache;
+import com.wip.utils.TaleUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,6 +15,24 @@ public abstract class BaseController {
     public BaseController title(HttpServletRequest request, String title) {
         request.setAttribute("title", title);
         return this;
+    }
+
+    /**
+     * 获取请求绑定的登录对象
+     * @param request
+     * @return
+     */
+    public UserDomain user(HttpServletRequest request) {
+        return TaleUtils.getLoginUser(request);
+    }
+
+    /**
+     * 获取请求绑定登录用户Uid
+     * @param request
+     * @return
+     */
+    public Integer getUid(HttpServletRequest request) {
+        return this.user(request).getUid();
     }
 
 
