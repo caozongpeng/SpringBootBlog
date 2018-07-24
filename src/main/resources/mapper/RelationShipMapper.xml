@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wip.dao.RelationShipDao">
+    <!--表名-->
+    <sql id="BASE_TABLE">
+        t_relationships
+    </sql>
+
+    <!--基本列-->
+    <sql id="BASE_COLUMN">
+        rs.cid, rs.mid
+    </sql>
+
+
+
+
+
+</mapper>

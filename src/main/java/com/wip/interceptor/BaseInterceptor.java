@@ -31,6 +31,9 @@ public class BaseInterceptor implements HandlerInterceptor {
     @Autowired
     private Commons commons;
 
+    @Autowired
+    private AdminCommons adminCommons;
+
 
     private MapCache cache = MapCache.single();
 
@@ -78,6 +81,7 @@ public class BaseInterceptor implements HandlerInterceptor {
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object o, ModelAndView view) throws Exception {
 
         request.setAttribute("commons",commons);
+        request.setAttribute("adminCommons",adminCommons);
 
     }
 

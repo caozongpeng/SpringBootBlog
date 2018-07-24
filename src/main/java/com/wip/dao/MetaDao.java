@@ -5,12 +5,14 @@
  **/
 package com.wip.dao;
 
+import com.wip.dto.MetaDto;
 import com.wip.dto.cond.MetaCond;
 import com.wip.model.MetaDomain;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface MetaDao {
@@ -42,5 +44,12 @@ public interface MetaDao {
      * @return
      */
     MetaDomain getMetaById(@Param("mid") Integer mid);
+
+    /**
+     * 根据sql查询
+     * @param parMap
+     * @return
+     */
+    List<MetaDto> selectFromSql(Map<String, Object> parMap);
 
 }

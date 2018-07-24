@@ -17,33 +17,34 @@
                                 <h1 class="panel-title">分类列表</h1>
                             </div>
                             <div class="panel-body">
-                                <!--<th:block th:each="c : ${categories}">-->
-                                    <!--<div class="btn-group m-b-10">-->
-                                        <!--<th:block th:if="${c.name == '默认分类'}">-->
-                                            <!--<button type="button"-->
-                                                    <!--th:class="'btn btn-'+${adminCommons.rand_color()}+' waves-effect waves-light'">-->
-                                                <!--<th:block th:text="${c.name}"/>-->
-                                                <!--<th:block th:text="' ('+${c.count}+')'"/>-->
-                                            <!--</button>-->
-                                        <!--</th:block>-->
-                                        <!--<th:block th:unless="${c.name == '默认分类'}">-->
-                                            <!--<button type="button"-->
-                                                    <!--th:class="'btn btn-'+${adminCommons.rand_color()}+' dropdown-toggle waves-effect waves-light'"-->
-                                                    <!--data-toggle="dropdown" aria-expanded="false">-->
-                                                <!--<th:block th:text="${c.name}"/>-->
-                                                <!--<th:block th:text="' ('+${c.count}+')'"/>-->
-                                                <!--<span-->
-                                                        <!--class="caret"></span></button>-->
-                                            <!--<ul class="dropdown-menu" role="menu">-->
-                                                <!--<li><a href="javascript:void(0)" th:attr="mid=${c.mid},cname=${c.name}"-->
-                                                       <!--class="edit-category">修改</a>-->
-                                                <!--</li>-->
-                                                <!--<li><a href="javascript:void(0)" th:attr="mid=${c.mid}"-->
-                                                       <!--class="del-category">删除</a></li>-->
-                                            <!--</ul>-->
-                                        <!--</th:block>-->
-                                    <!--</div>-->
-                                <!--</th:block>-->
+                                <th:block th:each="c : ${categories}">
+                                    <div class="btn-group m-b-10">
+                                        <th:block th:if="${c.name == '默认分类'}">
+                                            <button type="button"
+                                                    th:class="'btn btn-'+${adminCommons.rand_color()}+' waves-effect waves-light'">
+                                                <th:block th:text="${c.name}"/>
+                                                <th:block th:text="' ('+${c.count}+')'"/>
+                                            </button>
+                                        </th:block>
+                                        <th:block th:unless="${c.name == '默认分类'}">
+                                            <button type="button"
+                                                    th:class="'btn btn-'+${adminCommons.rand_color()}+' dropdown-toggle waves-effect waves-light'"
+                                                    data-toggle="dropdown" aria-expanded="false">
+                                                <th:block th:text="${c.name}"/>
+                                                <th:block th:text="' ('+${c.count}+')'"/>
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li>
+                                                    <a href="javascript:void(0)" th:attr="mid=${c.mid},cname=${c.name}" class="edit-category">修改</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0)" th:attr="mid=${c.mid}" class="del-category">删除</a>
+                                                </li>
+                                            </ul>
+                                        </th:block>
+                                    </div>
+                                </th:block>
                             </div>
                         </div>
                     </div>

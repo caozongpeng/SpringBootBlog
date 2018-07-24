@@ -41,5 +41,9 @@ public class BusinessException extends RuntimeException {
         return businessException;
     }
 
+    public String getErrorCode() {
+        return this.errorCode;
+    }
+
 
 }

@@ -5,8 +5,11 @@ import sun.misc.BASE64Encoder;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
+import java.util.Random;
 
 public class Tools {
+
+    private static final Random random = new Random();
 
 
     public static String enAes(String data, String key) throws Exception {
@@ -37,6 +40,17 @@ public class Tools {
         }
         return false;
     }
+
+    /**
+     * 随机数
+     * @param min
+     * @param max
+     * @return
+     */
+    public static int rand(int min, int max) {
+        return random.nextInt(max) % (max - min + 1) + min;
+    }
+
 
 
 }
