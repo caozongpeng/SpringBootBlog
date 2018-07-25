@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wip.dao.ContentDao">
+
+    <!--表名-->
+    <sql id="BASE_TABLE">
+        t_contents
+    </sql>
+    <!--文章表列名-->
+    <sql id="BASE_COLUMN">
+        c.cid, c.title, c.titlePic, c.slug, c.created, c.modified, c.content, c.authorId,
+        c.type, c.status, c.tags, c.categories, c.hits, c.commentsNum, c.allowComment,
+        c.allowPing, c.allowFeed
+    </sql>
+
+    <!--用户表-->
+    <sql id="TABLE_USER">
+        <include refid="com.wip.dao.UserDao.BASE_TABLE"/>
+    </sql>
+
+    <!--添加文章-->
+    <insert id="addArticle" parameterType="com.wip.model.ContentDomain" useGeneratedKeys="true" keyProperty="cid">
+        INSERT INTO
+          <include refid="BASE_TABLE"/>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            title, titlePic, slug, created, content, authorId,
+            type, status, tags, categories, hits, commentsNum, allowComment,
+            allowPing, allowFeed
+        </trim>
+        <trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+            #{title, jdbcType=VARCHAR},
+            #{titlePic, jdbcType=VARCHAR},
+            #{slug, jdbcType=VARCHAR},
+            UNIX_TIMESTAMP(NOW()),
+            #{content, jdbcType=LONGVARCHAR},
+            #{authorId, jdbcType=INTEGER},
+            #{type, jdbcType=VARCHAR},
+            #{status, jdbcType=VARCHAR},
+            #{tags, jdbcType=VARCHAR},
+            #{categories, jdbcType=VARCHAR},
+            #{hits, jdbcType=INTEGER},
+            #{commentsNum, jdbcType=INTEGER},
+            #{allowComment, jdbcType=INTEGER},
+            #{allowPing, jdbcType=INTEGER},
+            #{allowFeed, jdbcType=INTEGER}
+        </trim>
+
+    </insert>
+
+
+
+</mapper>

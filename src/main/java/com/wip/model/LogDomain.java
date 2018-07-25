@@ -7,7 +7,9 @@ package com.wip.model;
 
 import java.io.Serializable;
 
-
+/**
+ * 日志表
+ */
 public class LogDomain implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -83,25 +83,25 @@
                             </div>
 
 
-                                <div class="form-group col-md-6" style="padding: 0 10px 0 0;">
-                                    <!-- 如果是作品类，那么暂时不允许使用标签 -->
-                                    <input name="tags" id="tags"  type="text" class="form-control" placeholder="请填写文章标签"
-                                           th:value="${contents!=null and contents.tags !=null}?${contents.tags}: ''"/>
-                                </div>
-                                <div class="form-group col-md-6" >
-                                    <select id="multiple-sel"   class="select2 form-control" multiple="multiple"
-                                            data-placeholder="请选择分类...">
-                                        <th:block th:if="${null == categories}">
-                                            <option value="默认分类" selected="selected">默认分类</option>
+                            <div class="form-group col-md-6" style="padding: 0 10px 0 0;">
+                                <!-- 如果是作品类，那么暂时不允许使用标签 -->
+                                <input name="tags" id="tags"  type="text" class="form-control" placeholder="请填写文章标签"
+                                       th:value="${contents!=null and contents.tags !=null}?${contents.tags}: ''"/>
+                            </div>
+                            <div class="form-group col-md-6" >
+                                <select id="multiple-sel"   class="select2 form-control" multiple="multiple"
+                                        data-placeholder="请选择分类...">
+                                    <th:block th:if="${null == categories}">
+                                        <option value="默认分类" selected="selected">默认分类</option>
+                                    </th:block>
+                                    <th:block th:unless="${null == categories}">
+                                        <th:block th:each="c : ${categories}">
+                                            <option th:value="${c.name}" th:text="${c.name}"
+                                                    th:selected="${null !=contents and adminCommons.exist_cat(c, contents.categories)}?true:false"></option>
                                         </th:block>
-                                        <th:block th:unless="${null == categories}">
-                                            <th:block th:each="c : ${categories}">
-                                                <option th:value="${c.name}" th:text="${c.name}"
-                                                        th:selected="${null !=contents and adminCommons.exist_cat(c, contents.categories)}?true:false"></option>
-                                            </th:block>
-                                        </th:block>
-                                    </select>
-                                </div>
+                                    </th:block>
+                                </select>
+                            </div>
 
                             <div class="clearfix"></div>
                             <div id="my-editormd" >

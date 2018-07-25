@@ -6,6 +6,8 @@
 package com.wip.service.meta;
 
 import com.wip.dto.MetaDto;
+import com.wip.dto.cond.MetaCond;
+import com.wip.model.MetaDomain;
 
 import java.util.List;
 
@@ -31,4 +33,16 @@ public interface MetaService {
      */
     List<MetaDto> getMetaList(String type, String orderBy, int limit);
 
+    /**
+     * 删除项目
+     * @param mid
+     */
+    void deleteMetaById(Integer mid);
+
+    /**
+     * 获取所有项目
+     * @param metaCond  查询条件
+     * @return
+     */
+    List<MetaDomain> getMetas(MetaCond metaCond);
 }

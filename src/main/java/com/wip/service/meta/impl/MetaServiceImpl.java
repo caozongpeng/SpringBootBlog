@@ -8,15 +8,18 @@ package com.wip.service.meta.impl;
 import com.wip.constant.ErrorConstant;
 import com.wip.constant.WebConst;
 import com.wip.dao.MetaDao;
+import com.wip.dao.RelationShipDao;
 import com.wip.dto.MetaDto;
 import com.wip.dto.cond.MetaCond;
 import com.wip.exception.BusinessException;
 import com.wip.model.MetaDomain;
+import com.wip.model.RelationShipDomain;
 import com.wip.service.meta.MetaService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +33,9 @@ public class MetaServiceImpl implements MetaService {
 
     @Autowired
     private MetaDao metaDao;
+
+    @Autowired
+    private RelationShipDao relationShipDao;
 
     @Override
     public void saveMeta(String type, String name, Integer mid) {
@@ -80,5 +86,39 @@ public class MetaServiceImpl implements MetaService {
             return metaDao.selectFromSql(paraMap);
         }
         return null;
+    }
+
+    @Override
+    @Transactional
+    public void deleteMetaById(Integer mid) {
+        if (null == mid)
+            throw BusinessException.withErrorCode(ErrorConstant.Common.PARAM_IS_EMPTY);
+
+        // 通过ID找到该项目
+        MetaDomain meta = metaDao.getMetaById(mid);
+        if (null != meta) {
+            String type = meta.getType();
+            String name = meta.getName();
+            // 删除meta
+            metaDao.deleteMetaById(mid);
+            // 需要把相关的数据删除
+            List<RelationShipDomain> relationShips = relationShipDao.getRelationShipByMid(mid);
+            // 判断是否查找到项目编号
+            if (null != relationShips && relationShips.size() > 0) {
+                for (RelationShipDomain relationShip : relationShips) {
+
+                }
+
+                // 删除关联meta
+                relationShipDao.deleteRelationShipByMid(mid);
+            }
+        }
+
+    }
+
+    @Override
+    @Cacheable(value = "metaCaches", key = "'metas_' + #p0")
+    public List<MetaDomain> getMetas(MetaCond metaCond) {
+        return metaDao.getMetasByCond(metaCond);
     }
 }

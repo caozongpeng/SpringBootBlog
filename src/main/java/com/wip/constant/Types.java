@@ -1,5 +1,7 @@
 package com.wip.constant;
 
+import com.wip.model.ContentDomain;
+
 /**
  * Created by IntelliJ IDEA.
  * User: Kyrie
@@ -7,7 +9,13 @@ package com.wip.constant;
  **/
 public enum Types {
 
+    // 分类
     CATEGORY("category"),
+    // 标签
+    TAG("tag"),
+    // 文章
+    ARTICLE("post"),
+    // csrf_token
     CSRF_TOKEN("csrf_token");
 
     private String type;

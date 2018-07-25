@@ -1,5 +1,8 @@
 package com.wip.model;
 
+/**
+ * 用户表
+ */
 public class UserDomain {
 
     /** 主键编号 */

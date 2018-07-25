@@ -8,7 +8,7 @@ package com.wip.model;
 import java.io.Serializable;
 
 /**
- * 项目类
+ * 项目表
  */
 public class MetaDomain implements Serializable {
     private static final long serialVersionUID = 1L;

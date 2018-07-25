@@ -34,7 +34,9 @@ public class CategoryController extends BaseController {
     @GetMapping(value = "")
     public String index(HttpServletRequest request) {
         List<MetaDto> categories = metaService.getMetaList(Types.CATEGORY.getType(),null,WebConst.MAX_POSTS);
+        List<MetaDto> tags = metaService.getMetaList(Types.TAG.getType(), null, WebConst.MAX_POSTS);
         request.setAttribute("categories",categories);
+        request.setAttribute("tags",tags);
         return "admin/category";
     }
 
@@ -65,5 +67,23 @@ public class CategoryController extends BaseController {
         return APIResponse.success();
     }
 
+    @ApiOperation("删除分类")
+    @PostMapping(value = "/delete")
+    @ResponseBody
+    public APIResponse deleteCategory(
+            @ApiParam(name = "mid", value = "meta编号", required = true)
+            @RequestParam(name = "mid", required = true)
+            Integer mid
+    ) {
+        try {
+            metaService.deleteMetaById(mid);
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.error(e.getMessage());
+            return APIResponse.fail(e.getMessage());
+        }
+        return APIResponse.success();
+
+    }
 
 }

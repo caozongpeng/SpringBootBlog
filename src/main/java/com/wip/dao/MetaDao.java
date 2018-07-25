@@ -52,4 +52,9 @@ public interface MetaDao {
      */
     List<MetaDto> selectFromSql(Map<String, Object> parMap);
 
+    /**
+     * 删除项目
+     * @param mid
+     */
+    void deleteMetaById(Integer mid);
 }

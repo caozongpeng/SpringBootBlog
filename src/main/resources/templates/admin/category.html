@@ -55,21 +55,22 @@
                                 <h1 class="panel-title">标签列表</h1>
                             </div>
                             <div class="panel-body">
-                                <!--<th:block th:each="c : ${tags}">-->
-                                    <!--<div class="btn-group m-b-10">-->
-                                        <!--<button type="button"-->
-                                                <!--th:class="'btn btn-'+${adminCommons.rand_color()}+' dropdown-toggle waves-effect waves-light'"-->
-                                                <!--data-toggle="dropdown" aria-expanded="false">-->
-                                            <!--<th:block th:text="${c.name}"/>-->
-                                            <!--<th:block th:text="' ('+${c.count}+')'"/>-->
-                                            <!--<span-->
-                                                    <!--class="caret"></span></button>-->
-                                        <!--<ul class="dropdown-menu" role="menu">-->
-                                            <!--<li><a href="javascript:void(0)" th:attr="mid=${c.mid}"-->
-                                                   <!--class="del-category">删除</a></li>-->
-                                        <!--</ul>-->
-                                    <!--</div>-->
-                                <!--</th:block>-->
+                                <th:block th:each="c : ${tags}">
+                                    <div class="btn-group m-b-10">
+                                        <button type="button"
+                                                th:class="'btn btn-'+${adminCommons.rand_color()}+' dropdown-toggle waves-effect waves-light'"
+                                                data-toggle="dropdown" aria-expanded="false">
+                                            <th:block th:text="${c.name}"/>
+                                            <th:block th:text="' ('+${c.count}+')'"/>
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li>
+                                                <a href="javascript:void(0)" th:attr="mid=${c.mid}" class="del-category">删除</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </th:block>
                             </div>
                         </div>
                     </div>

@@ -32,5 +32,15 @@ public class WebConst {
      */
     public static final int MAX_POSTS = 9999;
 
+    /**
+     * 文章标题最多可以输入的文字个数
+     */
+    public static final int MAX_TITLE_COUNT = 200;
+
+    /**
+     * 文章内容最多可以输入的文字个数
+     */
+    public static final int MAX_CONTENT_COUNT = 200000;
+
 
 }
