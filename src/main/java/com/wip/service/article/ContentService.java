@@ -5,6 +5,8 @@
  **/
 package com.wip.service.article;
 
+import com.github.pagehelper.PageInfo;
+import com.wip.dto.cond.ContentCond;
 import com.wip.model.ContentDomain;
 
 /**
@@ -17,4 +19,26 @@ public interface ContentService {
      * @param contentDomain
      */
     void addArticle(ContentDomain contentDomain);
+
+    /**
+     * 根据编号获取文章
+     * @param cid
+     * @return
+     */
+    ContentDomain getArticleById(Integer cid);
+
+    /**
+     * 更新文章
+     * @param contentDomain
+     */
+    void updateArticleById(ContentDomain contentDomain);
+
+    /**
+     * 根据条件获取文章列表
+     * @param contentCond
+     * @param page
+     * @param limit
+     * @return
+     */
+    PageInfo<ContentDomain> getArticlesByCond(ContentCond contentCond, int page, int limit);
 }

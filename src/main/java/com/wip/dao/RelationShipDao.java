@@ -7,6 +7,7 @@ package com.wip.dao;
 
 import com.wip.model.RelationShipDomain;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -28,4 +29,25 @@ public interface RelationShipDao {
      * @param mid
      */
     void deleteRelationShipByMid(Integer mid);
+
+    /**
+     * 获取数量
+     * @param cid
+     * @param mid
+     * @return
+     */
+    Long getCountById(@Param("cid") Integer cid, @Param("mid") Integer mid);
+
+    /**
+     * 添加
+     * @param relationShip
+     * @return
+     */
+    int addRelationShip(RelationShipDomain relationShip);
+
+    /**
+     * 根据文章编号删除关联
+     * @param cid
+     */
+    void deleteRelationShipByCid(int cid);
 }

@@ -1,10 +1,13 @@
 package com.wip.controller.admin;
 
+import com.github.pagehelper.PageInfo;
 import com.wip.constant.Types;
 import com.wip.controller.BaseController;
+import com.wip.dto.cond.ContentCond;
 import com.wip.dto.cond.MetaCond;
 import com.wip.model.ContentDomain;
 import com.wip.model.MetaDomain;
+import com.wip.service.article.ContentService;
 import com.wip.service.meta.MetaService;
 import com.wip.utils.APIResponse;
 import io.swagger.annotations.Api;
@@ -29,9 +32,22 @@ public class ArticleController extends BaseController {
     @Autowired
     private MetaService metaService;
 
+    @Autowired
+    private ContentService contentService;
+
     @ApiOperation("文章页")
     @GetMapping(value = "")
-    public String index() {
+    public String index(
+            HttpServletRequest request,
+            @ApiParam(name = "page", value = "页数", required = false)
+            @RequestParam(name = "page", required = false, defaultValue = "1")
+            int page,
+            @ApiParam(name = "limit", value = "每页数量", required = false)
+            @RequestParam(name = "limit", required = false, defaultValue = "15")
+            int limit
+    ) {
+        PageInfo<ContentDomain> articles = contentService.getArticlesByCond(new ContentCond(), page, limit);
+        request.setAttribute("articles",articles);
         return "admin/article_list";
     }
 
@@ -44,6 +60,65 @@ public class ArticleController extends BaseController {
         request.setAttribute("categories",metas);
         return "admin/article_edit";
     }
+
+    @ApiOperation("文章编辑页")
+    @GetMapping(value = "/{cid}")
+    public String editArticle(
+            @ApiParam(name = "cid", value = "文章编号", required = true)
+            @PathVariable
+            Integer cid,
+            HttpServletRequest request
+    ) {
+        ContentDomain content = contentService.getArticleById(cid);
+        request.setAttribute("contents", content);
+        MetaCond metaCond = new MetaCond();
+        metaCond.setType(Types.CATEGORY.getType());
+        List<MetaDomain> categories = metaService.getMetas(metaCond);
+        request.setAttribute("categories", categories);
+        request.setAttribute("active", "article");
+        return "admin/article_edit";
+    }
+
+    @ApiOperation("编辑保存文章")
+    @PostMapping("/modify")
+    @ResponseBody
+    public APIResponse modifyArticle(
+            HttpServletRequest request,
+            @ApiParam(name = "cid", value = "文章主键", required = true)
+            @RequestParam(name = "cid", required = true)
+            Integer cid,
+            @ApiParam(name = "title", value = "标题", required = true)
+            @RequestParam(name = "title", required = true)
+            String title,
+            @ApiParam(name = "titlePic", value = "标题图片", required = false)
+            @RequestParam(name = "titlePic", required = false)
+            String titlePic,
+            @ApiParam(name = "slug", value = "内容缩略名", required = false)
+            @RequestParam(name = "slug", required = false)
+            String slug,
+            @ApiParam(name = "content", value = "内容", required = true)
+            @RequestParam(name = "content", required = true)
+            String content,
+            @ApiParam(name = "type", value = "文章类型", required = true)
+            @RequestParam(name = "type", required = true)
+            String type,
+            @ApiParam(name = "status", value = "文章状态", required = true)
+            @RequestParam(name = "status", required = true)
+            String status,
+            @ApiParam(name = "tags", value = "标签", required = false)
+            @RequestParam(name = "tags", required = false)
+            String tags,
+            @ApiParam(name = "categories", value = "分类", required = false)
+            @RequestParam(name = "categories", required = false, defaultValue = "默认分类")
+            String categories,
+            @ApiParam(name = "allowComment", value = "是否允许评论", required = true)
+            @RequestParam(name = "allowComment", required = true)
+            Boolean allowComment
+    ) {
+
+        return APIResponse.success();
+    }
+
 
     @ApiOperation("发布新文章")
     @PostMapping(value = "/publish")
@@ -87,6 +162,9 @@ public class ArticleController extends BaseController {
         contentDomain.setTags(type.equals(Types.ARTICLE.getType()) ? tags : null);
         contentDomain.setCategories(type.equals(Types.ARTICLE.getType()) ? categories : null);
         contentDomain.setAllowComment(allowComment ? 1 : 0);
+
+        // 添加文章
+        contentService.addArticle(contentDomain);
 
         return APIResponse.success();
     }

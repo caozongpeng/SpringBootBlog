@@ -34,6 +34,22 @@ public interface MetaService {
     List<MetaDto> getMetaList(String type, String orderBy, int limit);
 
     /**
+     * 添加或者更新
+     * @param cid
+     * @param name
+     * @param type
+     */
+    void saveOrUpdate(Integer cid, String name, String type);
+
+    /**
+     * 批量添加
+     * @param cid
+     * @param names
+     * @param type
+     */
+    void addMetas(Integer cid, String names, String type);
+
+    /**
      * 删除项目
      * @param mid
      */
@@ -45,4 +61,10 @@ public interface MetaService {
      * @return
      */
     List<MetaDomain> getMetas(MetaCond metaCond);
+
+    /**
+     * 添加项目
+     * @param meta
+     */
+    void addMea(MetaDomain meta);
 }

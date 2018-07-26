@@ -47,6 +47,28 @@ public class Commons {
     }
 
     /**
+     * 格式化unix时间戳为日期
+     * @param unixTime
+     * @param patten
+     * @return
+     */
+    public static String fmtdate(Integer unixTime, String patten) {
+        if (null != unixTime && StringUtils.isNotBlank(patten)) {
+            return DateKit.formatDateByUnixTime(unixTime,patten);
+        }
+        return "";
+    }
+
+    /**
+     * 返回blog文章地址
+     * @param cid
+     * @return
+     */
+    public static String blogPermalink(Integer cid) {
+        return site_url("/blog/article/" + cid.toString());
+    }
+
+    /**
      * 网站链接
      * @return
      */
