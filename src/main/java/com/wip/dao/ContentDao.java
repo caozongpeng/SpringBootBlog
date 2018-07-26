@@ -42,4 +42,10 @@ public interface ContentDao {
      * @return
      */
     List<ContentDomain> getArticleByCond(ContentCond contentCond);
+
+    /**
+     * 删除文章
+     * @param cid
+     */
+    void deleteArticleById(Integer cid);
 }

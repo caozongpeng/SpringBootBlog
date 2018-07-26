@@ -50,4 +50,10 @@ public interface RelationShipDao {
      * @param cid
      */
     void deleteRelationShipByCid(int cid);
+
+    /**
+     * 根据文章ID获取关联
+     * @param cid
+     */
+    List<RelationShipDomain> getRelationShipByCid(Integer cid);
 }

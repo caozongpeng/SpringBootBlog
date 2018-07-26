@@ -23,22 +23,22 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <!--<th:block th:each="link : ${links}">-->
-                                <!--<tr th:attr="mid=${link.mid}">-->
-                                    <!--<td th:text="${link.name}"></td>-->
-                                    <!--<td><a th:href="@{${link.slug}}" target="_blank" th:text="${link.slug}"></a></td>-->
-                                    <!--<td th:text="${link.description}"></td>-->
-                                    <!--<td th:text="${link.sort}"></td>-->
-                                    <!--<td>-->
-                                        <!--<a href="javascript:void(0)" onclick="editLink(this);"-->
-                                           <!--class="btn btn-primary btn-sm waves-effect waves-light m-b-5"><i-->
-                                                <!--class="fa fa-edit"></i> <span>编辑</span></a>-->
-                                        <!--<a href="javascript:void(0)" th:onclick="'delLink('+${link.mid}+');'"-->
-                                           <!--class="btn btn-danger btn-sm waves-effect waves-light m-b-5"><i-->
-                                                <!--class="fa fa-trash-o"></i> <span>删除</span></a>-->
-                                    <!--</td>-->
-                                <!--</tr>-->
-                            <!--</th:block>-->
+                            <th:block th:each="link : ${links}">
+                                <tr th:attr="mid=${link.mid}">
+                                    <td th:text="${link.name}"></td>
+                                    <td><a th:href="@{${link.slug}}" target="_blank" th:text="${link.slug}"></a></td>
+                                    <td><img style="height: 50px; width: 50px;" th:src="${link.description}" alt=""></td>
+                                    <td th:text="${link.sort}"></td>
+                                    <td>
+                                        <a href="javascript:void(0)" onclick="editLink(this);" class="btn btn-primary btn-sm waves-effect waves-light m-b-5">
+                                            <i class="fa fa-edit"></i> <span>编辑</span>
+                                        </a>
+                                        <a href="javascript:void(0)" th:onclick="'delLink('+${link.mid}+');'" class="btn btn-danger btn-sm waves-effect waves-light m-b-5">
+                                            <i class="fa fa-trash-o"></i> <span>删除</span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </th:block>
                             </tbody>
                         </table>
                     </div>
@@ -120,7 +120,8 @@
         var mid = this_.parents('tr').attr('mid');
         var title = this_.parents('tr').find('td:eq(0)').text();
         var url = this_.parents('tr').find('td:eq(1)').text();
-        var logo = this_.parents('tr').find('td:eq(2)').text();
+        // var logo = this_.parents('tr').find('td:eq(2)').text();
+        var logo = this_.parents("tr").find("td:eq(2)").children().attr("src");
         var sort = this_.parents('tr').find('td:eq(3)').text();
 
         $('#linkForm #mid').val(mid);

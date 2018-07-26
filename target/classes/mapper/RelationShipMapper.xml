@@ -63,4 +63,14 @@
         </trim>
     </insert>
 
+    <!--根据文章ID获取对应的标签或分类-->
+    <select id="getRelationShipByCid" resultType="com.wip.model.RelationShipDomain">
+        SELECT
+          <include refid="BASE_COLUMN"/>
+        FROM
+          <include refid="BASE_TABLE"/> AS rs
+        WHERE
+          cid = #{cid, jdbcType=INTEGER}
+    </select>
+
 </mapper>

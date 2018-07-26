@@ -1,6 +1,7 @@
 package com.wip.controller.admin;
 
 import com.github.pagehelper.PageInfo;
+import com.wip.constant.LogActions;
 import com.wip.constant.Types;
 import com.wip.controller.BaseController;
 import com.wip.dto.cond.ContentCond;
@@ -8,6 +9,7 @@ import com.wip.dto.cond.MetaCond;
 import com.wip.model.ContentDomain;
 import com.wip.model.MetaDomain;
 import com.wip.service.article.ContentService;
+import com.wip.service.log.LogService;
 import com.wip.service.meta.MetaService;
 import com.wip.utils.APIResponse;
 import io.swagger.annotations.Api;
@@ -34,6 +36,9 @@ public class ArticleController extends BaseController {
 
     @Autowired
     private ContentService contentService;
+
+    @Autowired
+    private LogService logService;
 
     @ApiOperation("文章页")
     @GetMapping(value = "")
@@ -115,6 +120,18 @@ public class ArticleController extends BaseController {
             @RequestParam(name = "allowComment", required = true)
             Boolean allowComment
     ) {
+        ContentDomain contentDomain = new ContentDomain();
+        contentDomain.setTitle(title);
+        contentDomain.setCid(cid);
+        contentDomain.setTitlePic(titlePic);
+        contentDomain.setSlug(slug);
+        contentDomain.setContent(content);
+        contentDomain.setType(type);
+        contentDomain.setStatus(status);
+        contentDomain.setTags(tags);
+        contentDomain.setCategories(categories);
+        contentDomain.setAllowComment(allowComment ? 1: 0);
+        contentService.updateArticleById(contentDomain);
 
         return APIResponse.success();
     }
@@ -159,6 +176,7 @@ public class ArticleController extends BaseController {
         contentDomain.setContent(content);
         contentDomain.setType(type);
         contentDomain.setStatus(status);
+        // 只允许博客文章有分类，防止作品被收入分类
         contentDomain.setTags(type.equals(Types.ARTICLE.getType()) ? tags : null);
         contentDomain.setCategories(type.equals(Types.ARTICLE.getType()) ? categories : null);
         contentDomain.setAllowComment(allowComment ? 1 : 0);
@@ -166,6 +184,22 @@ public class ArticleController extends BaseController {
         // 添加文章
         contentService.addArticle(contentDomain);
 
+        return APIResponse.success();
+    }
+
+    @ApiOperation("删除文章")
+    @PostMapping("/delete")
+    @ResponseBody
+    public APIResponse deleteArticle(
+            @ApiParam(name = "cid", value = "文章ID", required = true)
+            @RequestParam(name = "cid", required = true)
+            Integer cid,
+            HttpServletRequest request
+    ) {
+        // 删除文章
+        contentService.deleteArticleById(cid);
+        // 写入日志
+        logService.addLog(LogActions.DEL_ARTICLE.getAction(), cid+"",request.getRemoteAddr(),this.getUid(request));
         return APIResponse.success();
     }
 

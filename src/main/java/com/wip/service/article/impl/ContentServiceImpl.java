@@ -15,6 +15,7 @@ import com.wip.dao.RelationShipDao;
 import com.wip.dto.cond.ContentCond;
 import com.wip.exception.BusinessException;
 import com.wip.model.ContentDomain;
+import com.wip.model.RelationShipDomain;
 import com.wip.service.article.ContentService;
 import com.wip.service.meta.MetaService;
 import org.apache.commons.lang3.StringUtils;
@@ -107,5 +108,25 @@ public class ContentServiceImpl implements ContentService {
         List<ContentDomain> contents = contentDao.getArticleByCond(contentCond);
         PageInfo<ContentDomain> pageInfo = new PageInfo<>(contents);
         return pageInfo;
+    }
+
+    @Override
+    @Transactional
+    @CacheEvict(value = {"articleCache","articleCaches"},allEntries = true, beforeInvocation = true)
+    public void deleteArticleById(Integer cid) {
+        if (null == cid)
+            throw BusinessException.withErrorCode(ErrorConstant.Common.PARAM_IS_EMPTY);
+        // 删除文章
+        contentDao.deleteArticleById(cid);
+
+        // 同时要删除该 文章下的所有评论
+
+        // 删除标签和分类关联
+        List<RelationShipDomain> relationShips = relationShipDao.getRelationShipByCid(cid);
+        if (null != relationShips && relationShips.size() > 0) {
+            relationShipDao.deleteRelationShipByCid(cid);
+        }
+
+
     }
 }

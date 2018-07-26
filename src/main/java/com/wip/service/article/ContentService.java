@@ -41,4 +41,10 @@ public interface ContentService {
      * @return
      */
     PageInfo<ContentDomain> getArticlesByCond(ContentCond contentCond, int page, int limit);
+
+    /**
+     * 删除文章
+     * @param cid
+     */
+    void deleteArticleById(Integer cid);
 }

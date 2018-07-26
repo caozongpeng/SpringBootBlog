@@ -67,4 +67,10 @@ public interface MetaService {
      * @param meta
      */
     void addMea(MetaDomain meta);
+
+    /**
+     * 更新项目
+     * @param meta
+     */
+    void updateMeta(MetaDomain meta);
 }

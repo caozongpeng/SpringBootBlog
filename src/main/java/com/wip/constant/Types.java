@@ -16,7 +16,9 @@ public enum Types {
     // 文章
     ARTICLE("post"),
     // csrf_token
-    CSRF_TOKEN("csrf_token");
+    CSRF_TOKEN("csrf_token"),
+    // 友情链接
+    LINK("link");
 
     private String type;
 

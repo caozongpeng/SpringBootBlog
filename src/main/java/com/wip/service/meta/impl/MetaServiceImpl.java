@@ -156,6 +156,15 @@ public class MetaServiceImpl implements MetaService {
 
     @Override
     @Transactional
+    @CacheEvict(value = {"metaCaches", "metaCache"}, allEntries = true, beforeInvocation = true)
+    public void updateMeta(MetaDomain meta) {
+        if (null == meta || null == meta.getMid())
+            throw BusinessException.withErrorCode(ErrorConstant.Common.PARAM_IS_EMPTY);
+        metaDao.updateMeta(meta);
+    }
+
+    @Override
+    @Transactional
     public void deleteMetaById(Integer mid) {
         if (null == mid)
             throw BusinessException.withErrorCode(ErrorConstant.Common.PARAM_IS_EMPTY);
