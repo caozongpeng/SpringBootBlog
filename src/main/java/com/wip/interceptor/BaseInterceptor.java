@@ -2,7 +2,9 @@ package com.wip.interceptor;
 
 import com.wip.constant.Types;
 import com.wip.constant.WebConst;
+import com.wip.model.OptionsDomain;
 import com.wip.model.UserDomain;
+import com.wip.service.option.OptionService;
 import com.wip.service.user.UserService;
 import com.wip.utils.*;
 import org.slf4j.Logger;
@@ -27,6 +29,9 @@ public class BaseInterceptor implements HandlerInterceptor {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private OptionService optionService;
 
     @Autowired
     private Commons commons;
@@ -79,9 +84,10 @@ public class BaseInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object o, ModelAndView view) throws Exception {
-
-        request.setAttribute("commons",commons);
-        request.setAttribute("adminCommons",adminCommons);
+        OptionsDomain ov = optionService.getOptionByName("site_record");
+        request.setAttribute("commons", commons);
+        request.setAttribute("option", ov);
+        request.setAttribute("adminCommons", adminCommons);
 
     }
 
