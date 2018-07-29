@@ -4,6 +4,7 @@ import com.wip.constant.Types;
 import com.wip.constant.WebConst;
 import com.wip.model.OptionsDomain;
 import com.wip.model.UserDomain;
+import com.wip.service.meta.MetaService;
 import com.wip.service.option.OptionService;
 import com.wip.service.user.UserService;
 import com.wip.utils.*;
@@ -16,6 +17,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 自定义拦截器
@@ -88,7 +92,18 @@ public class BaseInterceptor implements HandlerInterceptor {
         request.setAttribute("commons", commons);
         request.setAttribute("option", ov);
         request.setAttribute("adminCommons", adminCommons);
+        initSiteConfig(request);
+    }
 
+    private void initSiteConfig(HttpServletRequest request) {
+        if (WebConst.initConfig.isEmpty()) {
+            List<OptionsDomain> options = optionService.getOptions();
+            Map<String, String> querys = new HashMap<>();
+            options.forEach(option -> {
+                querys.put(option.getName(),option.getValue());
+            });
+            WebConst.initConfig = querys;
+        }
     }
 
     @Override

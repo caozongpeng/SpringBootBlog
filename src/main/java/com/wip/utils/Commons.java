@@ -86,6 +86,14 @@ public class Commons {
     }
 
     /**
+     * 获取网站备案信息
+     * @return
+     */
+    public static String site_record() {
+        return site_option("site_record");
+    }
+
+    /**
      * 网站配置项
      * @param key
      * @return

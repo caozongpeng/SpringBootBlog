@@ -69,7 +69,7 @@
             </div>
         </main>
         <!--底部footer-->
-        <div th:replace="blog/fragments/footer::footer"></div>
+        <div th:replace="blog/fragments/footer::footer(${commons.site_record()})"></div>
 
         <div class="back-to-top">
             <i class="fa fa-arrow-up"></i> <span id="scrollpercent"><span>0</span>%</span>
