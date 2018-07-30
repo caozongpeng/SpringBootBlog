@@ -1423,7 +1423,7 @@ pre .javascript .function {
   align-self: center;
 }
 .post-button {
-  margin-top: 50px;
+  margin-top: 35px;
 }
 .post-button .btn {
   color: #555;
@@ -1498,7 +1498,7 @@ pre .javascript .function {
 }
 .posts-expand .post-eof {
   display: block;
-  margin: 80px auto 60px;
+  margin: 50px auto 60px;
   width: 8%;
   height: 1px;
   background: #ccc;
