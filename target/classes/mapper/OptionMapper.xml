@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wip.dao.OptionDao">
+
+    <!--表名-->
+    <sql id="BASE_TABLE">
+        t_options
+    </sql>
+    <!--网站配置基本列-->
+    <sql id="BASE_COLUMN">
+        o.name, o.value, o.description
+    </sql>
+
+    <!--查找全部配置信息-->
+    <select id="getOptions" resultType="com.wip.model.OptionsDomain">
+        SELECT
+          <include refid="BASE_COLUMN"/>
+        FROM
+          <include refid="BASE_TABLE"/> AS o
+    </select>
+
+    <!--更新网站配置-->
+    <update id="updateOptionByName">
+        UPDATE
+          <include refid="BASE_TABLE"/>
+        <set>
+            <if test="value != null">
+                value = #{value, jdbcType=VARCHAR}
+            </if>
+            <if test="description != null">
+                description = #{description, jdbcType=VARCHAR}
+            </if>
+        </set>
+        WHERE
+          name = #{name, jdbcType=VARCHAR}
+    </update>
+
+    <!--通过名称网站配置-->
+    <select id="getOptionByName" resultType="com.wip.model.OptionsDomain">
+        SELECT
+          <include refid="BASE_COLUMN"/>
+        FROM
+          <include refid="BASE_TABLE"/> AS o
+        WHERE
+          o.name = #{name, jdbcType=VARCHAR}
+    </select>
+
+
+</mapper>
