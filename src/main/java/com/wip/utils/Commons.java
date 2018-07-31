@@ -1,5 +1,6 @@
 package com.wip.utils;
 
+import com.vdurmont.emoji.EmojiParser;
 import com.wip.constant.WebConst;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
@@ -119,6 +120,51 @@ public class Commons {
             return defaultValue;
         }
     }
+
+    /**
+     * 字符串截取
+     * @param str   截取的字符串
+     * @param len   截取的长度
+     * @return      截取之后字符串
+     */
+    public static String subStr(String str, Integer len) {
+        if (null == len) {
+            len = 100;
+        }
+        String tempStr = null;
+        if (str.length() > len) {
+            tempStr = str.substring(0,len);
+            return tempStr + "...";
+        }
+        return str;
+    }
+
+    /**
+     * 显示文章内容，转换markdown为HTML
+     * @param value
+     * @return
+     */
+    public static String article(String value) {
+        if (StringUtils.isNotBlank(value)) {
+            value = value.replace("<!--more-->", "\r\n");
+            value = value.replace("<!-- more -->", "\r\n");
+            return TaleUtils.mdToHtml(value);
+        }
+        return "";
+    }
+
+    /**
+     * An :grinning:awesome :smiley:string &#128516;with a few :wink:emojis!
+     * <p>
+     * 这种格式的字符转换为emoji表情
+     *
+     * @param value
+     * @return
+     */
+    public static String emoji(String value) {
+        return EmojiParser.parseToUnicode(value);
+    }
+
 
 
 

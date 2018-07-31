@@ -47,4 +47,10 @@ public interface ContentService {
      * @param cid
      */
     void deleteArticleById(Integer cid);
+
+    /**
+     * 添加文章点击量
+     * @param content
+     */
+    void updateContentByCid(ContentDomain content);
 }

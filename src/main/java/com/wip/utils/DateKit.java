@@ -27,4 +27,12 @@ public class DateKit {
         return "";
     }
 
+    public static int getCurrentUnixTime() {
+        return getUnixTimeByDate(new Date());
+    }
+
+    public static int getUnixTimeByDate(Date date) {
+        return (int)(date.getTime() / 1000L);
+    }
+
 }

@@ -18,7 +18,9 @@ public enum Types {
     // csrf_token
     CSRF_TOKEN("csrf_token"),
     // 友情链接
-    LINK("link");
+    LINK("link"),
+    // 评论
+    COMMENTS_FREQUENCY("comments:frequency");
 
     private String type;
 

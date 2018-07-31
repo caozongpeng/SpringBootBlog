@@ -3,15 +3,30 @@ package com.wip.utils;
 import com.wip.constant.WebConst;
 import com.wip.model.UserDomain;
 import org.apache.commons.lang3.StringUtils;
+import org.commonmark.Extension;
+import org.commonmark.ext.gfm.tables.TablesExtension;
+import org.commonmark.node.Node;
+import org.commonmark.renderer.html.HtmlRenderer;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.text.html.parser.Parser;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TaleUtils {
+
+    /**
+     * 匹配邮箱正则
+     */
+    private static final Pattern VALID_EMAIL_ADDRESS_REGEX =
+            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+    private static final Pattern SLUG_REGEX = Pattern.compile("^[A-Za-z0-9_-]{5,100}$", Pattern.CASE_INSENSITIVE);
 
     /**
      * 获取session中的用户
@@ -118,6 +133,59 @@ public class TaleUtils {
 
     }
 
+    /**
+     * markdown转换为html
+     * @param markdown
+     * @return
+     */
+    public static String mdToHtml(String markdown) {
+        if (StringUtils.isBlank(markdown)) {
+            return "";
+        }
+        java.util.List<Extension> extensions = Arrays.asList(TablesExtension.create());
+        org.commonmark.parser.Parser parser = org.commonmark.parser.Parser.builder().extensions(extensions).build();
+        Node document = parser.parse(markdown);
+        HtmlRenderer renderer = HtmlRenderer.builder().extensions(extensions).build();
+        String content = renderer.render(document);
+        content = Commons.emoji(content);
+        return content;
 
+    }
 
+    /**
+     * 判断是否是邮箱
+     * @param emailStr
+     * @return
+     */
+    public static boolean isEmail(String emailStr) {
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
+        return matcher.find();
+    }
+
+    /**
+     * 验证URL地址
+     * @param url 格式：http://blog.csdn.net:80/xyang81/article/details/7705960? 或 http://www.csdn.net:80
+     * @return 验证成功返回true，验证失败返回false
+     */
+    public static boolean isURL(String url) {
+        String regex = "(https?://(w{3}\\.)?)?\\w+\\.\\w+(\\.[a-zA-Z]+)*(:\\d{1,5})?(/\\w*)*(\\??(.+=.*)?(&.+=.*)?)?";
+        return Pattern.matches(regex, url);
+    }
+
+    /**
+     * 替换HTML脚本
+     *
+     * @param value
+     * @return
+     */
+    public static String cleanXSS(String value) {
+        //You'll need to remove the spaces from the html entities below
+        value = value.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+        value = value.replaceAll("\\(", "&#40;").replaceAll("\\)", "&#41;");
+        value = value.replaceAll("'", "&#39;");
+        value = value.replaceAll("eval\\((.*)\\)", "");
+        value = value.replaceAll("[\\\"\\\'][\\s]*javascript:(.*)[\\\"\\\']", "\"\"");
+        value = value.replaceAll("script", "");
+        return value;
+    }
 }

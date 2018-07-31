@@ -12,7 +12,7 @@
                     <article class="post post-type-normal">
                         <header class="post-header">
                             <h1 class="post-title">
-                                <a class="post-title-link" href="" th:text="${post.title}"></a>
+                                <a class="post-title-link" th:href="@{'/detail/'+${post.cid}}" th:text="${post.title}"></a>
                             </h1>
                             <div class="post-meta">
                                 <span class="post-time">
@@ -20,28 +20,28 @@
                                         <i class="fa fa-calendar-o"></i>
                                     </span>
                                     <span class="post-meta-item-text">发表于</span>
-                                        <time title="创建于" datetime="" th:text="${commons.fmtdate(post.created, 'yyyy-MM-dd')}"></time>
+                                    <time title="创建于" datetime="" th:text="${commons.fmtdate(post.created, 'yyyy-MM-dd')}"></time>
                                 </span>
                                 <span class="post-category">
                                     <span class="post-meta-divider">|</span>
-                                            <span class="post-meta-item-icon">
-                                                <i class="fa fa-folder-o"></i>
-                                            </span>
-                                            <span class="post-meta-item-text">分类于</span>
-                                            <span>
-                                                <a href="" rel="index">
-                                                    <span th:text="${post.categories}"></span>
-                                                </a>
-                                            </span>
+                                    <span class="post-meta-item-icon">
+                                        <i class="fa fa-folder-o"></i>
+                                    </span>
+                                    <span class="post-meta-item-text">分类于</span>
+                                    <span>
+                                        <a href="" rel="index">
+                                            <span th:text="${post.categories}"></span>
+                                        </a>
+                                    </span>
                                 </span>
                                 <span class="post-comments-count">
-                                            <span class="post-meta-divider">|</span>
-                                            <span class="post-meta-item-icon">
-                                              <i class="fa fa-comment-o"></i>
-                                            </span>
-                                            <a href="#comments">
-                                              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="" th:text="${post.allowComment} +' Comments'"></span>
-                                            </a>
+                                    <span class="post-meta-divider">|</span>
+                                    <span class="post-meta-item-icon">
+                                      <i class="fa fa-comment-o"></i>
+                                    </span>
+                                    <a href="#comments">
+                                      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="" th:text="${post.allowComment} +' Comments'"></span>
+                                    </a>
                                 </span>
                                 <span id="" class="leancloud_visitors" data-flag-title="">
                                     <span class="post-meta-divider">|</span>
@@ -54,11 +54,10 @@
                             </div>
                         </header>
 
-                        <div class="post-body" th:text="${post.content}">
-                        </div>
+                        <div style="text-indent: 2em;" class="post-body" th:text="${commons.subStr(post.content,250)}"></div>
                         <!--noindex-->
                         <div class="post-button text-center">
-                            <a class="btn" href="" rel="contents">
+                            <a class="btn" th:href="@{'/detail/'+${post.cid}}" rel="contents">
                                 阅读全文 »
                             </a>
                         </div>

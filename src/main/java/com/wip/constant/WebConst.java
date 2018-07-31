@@ -42,5 +42,11 @@ public class WebConst {
      */
     public static final int MAX_CONTENT_COUNT = 200000;
 
+    /**
+     * 点击次数超过铄和更新到数据库
+     */
+    public static final int HIT_EXEED = 10;
+
+
 
 }

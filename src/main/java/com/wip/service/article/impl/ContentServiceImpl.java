@@ -129,4 +129,12 @@ public class ContentServiceImpl implements ContentService {
 
 
     }
+
+    @Override
+    @CacheEvict(value = {"articleCache","articleCaches"}, allEntries = true, beforeInvocation = true)
+    public void updateContentByCid(ContentDomain content) {
+        if (null != content && null != content.getCid()) {
+            contentDao.updateArticleById(content);
+        }
+    }
 }
