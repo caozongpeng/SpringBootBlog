@@ -33,7 +33,7 @@ public class CommentDomain {
     /**
      * 评论者邮件
      */
-    private String email;
+    private String mail;
     /**
      * 评论者网址
      */
@@ -113,11 +113,11 @@ public class CommentDomain {
     }
 
     public String getEmail() {
-        return email;
+        return mail;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.mail = email;
     }
 
     public String getUrl() {

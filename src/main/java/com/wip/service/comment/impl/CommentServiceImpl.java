@@ -5,7 +5,11 @@
  **/
 package com.wip.service.comment.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.wip.constant.ErrorConstant;
 import com.wip.dao.CommentDao;
+import com.wip.dto.cond.CommentCond;
 import com.wip.exception.BusinessException;
 import com.wip.model.CommentDomain;
 import com.wip.model.ContentDomain;
@@ -16,9 +20,11 @@ import com.wip.utils.TaleUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -95,5 +101,16 @@ public class CommentServiceImpl implements CommentService {
         temp.setCommentsNum(count + 1);
         contentService.updateContentByCid(temp);
 
+    }
+
+    @Override
+    @Cacheable(value = "commentCache", key = "'commentsByCond_'+ #p1")
+    public PageInfo<CommentDomain> getCommentsByCond(CommentCond commentCond, int pageNum, int pageSize) {
+        if (null == commentCond)
+            throw BusinessException.withErrorCode(ErrorConstant.Common.PARAM_IS_EMPTY);
+        PageHelper.startPage(pageNum,pageSize);
+        List<CommentDomain> comments = commentDao.getCommentsByCond(commentCond);
+        PageInfo<CommentDomain> pageInfo = new PageInfo<>(comments);
+        return pageInfo;
     }
 }

@@ -5,8 +5,11 @@
  **/
 package com.wip.dao;
 
+import com.wip.dto.cond.CommentCond;
 import com.wip.model.CommentDomain;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface CommentDao {
@@ -16,4 +19,11 @@ public interface CommentDao {
      * @param comments
      */
     void addComment(CommentDomain comments);
+
+    /**
+     * 根据条件获取评论列表
+     * @param commentCond
+     * @return
+     */
+    List<CommentDomain> getCommentsByCond(CommentCond commentCond);
 }

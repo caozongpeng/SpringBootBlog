@@ -37,5 +37,28 @@
         </trim>
     </insert>
 
+    <!--根据条件查找评论列表-->
+    <select id="getCommentsByCond" resultType="com.wip.model.CommentDomain" parameterType="com.wip.dto.cond.CommentCond">
+        SELECT
+          <include refid="BASE_COLUMN"/>
+        FROM
+          <include refid="BASE_TABLE"/> AS cm
+        <where>
+            <if test="status != null">
+                AND cm.status = #{status, jdbcType=VARCHAR}
+            </if>
+            <if test="startTime != null">
+                AND cm.created &gt;= #{startTime, jdbcType=INTEGER}
+            </if>
+            <if test="endTime != null">
+                AND cm.created &lt;= #{endTime, jdbcType=INTEGER}
+            </if>
+            <if test="parent != null">
+                AND cm.parent = #{parent, jdbcType=INTEGER}
+            </if>
+        </where>
+        ORDER BY cm.created
+    </select>
+
 
 </mapper>

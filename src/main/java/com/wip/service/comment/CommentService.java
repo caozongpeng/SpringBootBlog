@@ -5,6 +5,8 @@
  **/
 package com.wip.service.comment;
 
+import com.github.pagehelper.PageInfo;
+import com.wip.dto.cond.CommentCond;
 import com.wip.model.CommentDomain;
 
 public interface CommentService {
@@ -14,4 +16,13 @@ public interface CommentService {
      * @param comments
      */
     void addComment(CommentDomain comments);
+
+    /**
+     * 根据条件获取评论列表
+     * @param commentCond   查询条件
+     * @param pageNum       分页参数 第几页
+     * @param pageSize      分页参数 每页条数
+     * @return
+     */
+    PageInfo<CommentDomain> getCommentsByCond(CommentCond commentCond, int pageNum, int pageSize);
 }

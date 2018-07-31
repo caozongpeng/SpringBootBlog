@@ -25,41 +25,44 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <!--<th:block th:each="comment : ${comments.list}">-->
-                                <!--<tr th:attr="cid=${comment.coid}">-->
-                                    <!--<td>-->
-                                        <!--<a th:href="@{${commons.site_url('/blog/article/')}+${comment.cid}+'#comments-content'}"-->
-                                           <!--target="_blank" th:utext="${commons.article(comment.content)}"></a>-->
-                                    <!--</td>-->
-                                    <!--<td th:text="${comment.author}"></td>-->
-                                    <!--<td th:text="${commons.fmtdate(comment.created, 'yyyy-MM-dd HH:mm:ss')}"></td>-->
-                                    <!--<td th:text="${comment.mail}"></td>-->
-                                    <!--<td><a th:href="@{${comment.url}}" target="_blank" th:text="${comment.url}"></a>-->
-                                    <!--</td>-->
-                                    <!--<td>-->
-                                        <!--<th:block th:if="${comment.status == 'approved'}">-->
-                                            <!--<span class="label label-success">审核通过</span>-->
-                                        <!--</th:block>-->
-                                        <!--<th:block th:if="${comment.status == 'not_audit'}">-->
-                                            <!--<span class="label label-default">未审核</span>-->
-                                        <!--</th:block>-->
-                                    <!--</td>-->
-                                    <!--<td>-->
-                                        <!--<th:block th:if="${comment.status == 'not_audit'}">-->
-                                            <!--<a href="javascript:void(0)"-->
-                                               <!--th:onclick="'updateStatus('+${comment.coid}+');'"-->
-                                               <!--class="btn btn-success btn-sm waves-effect waves-light m-b-5"><i-->
-                                                    <!--class="fa fa-check-square-o"></i> <span>通过</span></a>-->
-                                        <!--</th:block>-->
-                                        <!--<a href="javascript:void(0)" th:onclick="'delComment('+${comment.coid}+');'"-->
-                                           <!--class="btn btn-danger btn-sm waves-effect waves-light m-b-5"><i-->
-                                                <!--class="fa fa-trash-o"></i> <span>删除</span></a>-->
-                                    <!--</td>-->
-                                <!--</tr>-->
-                            <!--</th:block>-->
+                            <th:block th:each="comment : ${comments.list}">
+                                <tr th:attr="cid=${comment.coid}">
+                                    <td>
+                                        <a th:href="@{${commons.site_url('/blog/article/')}+${comment.cid}+'#comments-content'}"
+                                           target="_blank" th:utext="${commons.article(comment.content)}"></a>
+                                    </td>
+                                    <td th:text="${comment.author}"></td>
+                                    <td th:text="${commons.fmtdate(comment.created, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                    <td th:text="${comment.email}"></td>
+                                    <td><a th:href="@{${comment.url}}" target="_blank" th:text="${comment.url}"></a>
+                                    </td>
+                                    <td>
+                                        <th:block th:if="${comment.status == 'approved'}">
+                                            <span class="label label-success">审核通过</span>
+                                        </th:block>
+                                        <th:block th:if="${comment.status == 'not_audit'}">
+                                            <span class="label label-default">未审核</span>
+                                        </th:block>
+                                    </td>
+                                    <td>
+                                        <th:block th:if="${comment.status == 'not_audit'}">
+                                            <a href="javascript:void(0)" th:onclick="'updateStatus('+${comment.coid}+');'"
+                                               class="btn btn-success btn-sm waves-effect waves-light m-b-5">
+                                                <i class="fa fa-check-square-o"></i>
+                                                <span>通过</span>
+                                            </a>
+                                        </th:block>
+                                        <a href="javascript:void(0)" th:onclick="'delComment('+${comment.coid}+');'"
+                                           class="btn btn-danger btn-sm waves-effect waves-light m-b-5">
+                                            <i class="fa fa-trash-o"></i>
+                                            <span>删除</span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </th:block>
                             </tbody>
                         </table>
-                        <!--<div th:replace="comm/macros :: pageAdminNav(${comments})"></div>-->
+                        <div th:replace="comm/macros :: pageAdminNav(${comments})"></div>
                     </div>
                 </div>
                 <div th:replace="admin/fragments/footer :: footer-content"></div>
