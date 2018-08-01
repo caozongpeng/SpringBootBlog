@@ -60,5 +60,25 @@
         ORDER BY cm.created
     </select>
 
+    <!--通过ID获取评论-->
+    <select id="getCommentById" resultType="com.wip.model.CommentDomain">
+        SELECT
+          <include refid="BASE_COLUMN"/>
+        FROM
+          <include refid="BASE_TABLE"/> AS cm
+        WHERE
+          cm.coid = #{coid, jdbcType=INTEGER}
+    </select>
+
+    <!--更新评论状态-->
+    <update id="updateCommentStatus">
+        UPDATE
+          <include refid="BASE_TABLE"/>
+        SET
+          status = #{status, jdbcType=VARCHAR}
+        WHERE
+          coid = #{coid, jdbcType=INTEGER}
+    </update>
+
 
 </mapper>

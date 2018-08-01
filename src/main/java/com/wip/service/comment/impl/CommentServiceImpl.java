@@ -113,4 +113,20 @@ public class CommentServiceImpl implements CommentService {
         PageInfo<CommentDomain> pageInfo = new PageInfo<>(comments);
         return pageInfo;
     }
+
+    @Override
+    @Cacheable(value = "commentCache",key = "'commentById_' + #p0")
+    public CommentDomain getCommentById(Integer coid) {
+        if (null == coid)
+            throw BusinessException.withErrorCode(ErrorConstant.Common.PARAM_IS_EMPTY);
+        return commentDao.getCommentById(coid);
+    }
+
+    @Override
+    @CacheEvict(value = "commentCache", allEntries = true)
+    public void updateCommentStatus(Integer coid, String status) {
+        if (null == coid)
+            throw BusinessException.withErrorCode(ErrorConstant.Common.PARAM_IS_EMPTY);
+        commentDao.updateCommentStatus(coid, status);
+    }
 }

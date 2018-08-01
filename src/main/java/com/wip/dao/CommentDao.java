@@ -8,6 +8,7 @@ package com.wip.dao;
 import com.wip.dto.cond.CommentCond;
 import com.wip.model.CommentDomain;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -26,4 +27,18 @@ public interface CommentDao {
      * @return
      */
     List<CommentDomain> getCommentsByCond(CommentCond commentCond);
+
+    /**
+     * 通过ID获取评论
+     * @param coid
+     * @return
+     */
+    CommentDomain getCommentById(@Param("coid") Integer coid);
+
+    /**
+     * 更新评论状态
+     * @param coid
+     * @param status
+     */
+    void updateCommentStatus(@Param("coid") Integer coid, @Param("status") String status);
 }

@@ -54,7 +54,9 @@
                             </div>
                         </header>
 
-                        <div style="text-indent: 2em;" class="post-body" th:text="${commons.subStr(post.content,250)}"></div>
+                        <div style="text-indent: 2em;" class="post-body">
+                            <th:block th:utext="${commons.article(commons.subStr(post.content,250))}"></th:block>
+                        </div>
                         <!--noindex-->
                         <div class="post-button text-center">
                             <a class="btn" th:href="@{'/detail/'+${post.cid}}" rel="contents">

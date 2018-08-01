@@ -25,4 +25,18 @@ public interface CommentService {
      * @return
      */
     PageInfo<CommentDomain> getCommentsByCond(CommentCond commentCond, int pageNum, int pageSize);
+
+    /**
+     * 通过ID获取评论
+     * @param coid
+     * @return
+     */
+    CommentDomain getCommentById(Integer coid);
+
+    /**
+     * 更新评论状态
+     * @param coid
+     * @param status
+     */
+    void updateCommentStatus(Integer coid, String status);
 }

@@ -6,6 +6,7 @@ import com.wip.dto.cond.CommentCond;
 import com.wip.model.CommentDomain;
 import com.wip.model.UserDomain;
 import com.wip.service.comment.CommentService;
+import com.wip.utils.APIResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -13,10 +14,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 
 @Api("评论相关接口")
@@ -45,6 +45,33 @@ public class CommentController extends BaseController {
         PageInfo<CommentDomain> comments = commentService.getCommentsByCond(new CommentCond(), page, limit);
         request.setAttribute("comments", comments);
         return "admin/comment_list";
+    }
+
+    @ApiOperation("审核评论")
+    @PostMapping(value = "/status")
+    @ResponseBody
+    public APIResponse changeStatus(
+            HttpServletRequest request,
+            @ApiParam(name = "coid", value = "评论主键", required = true)
+            @RequestParam(name = "coid", required = true)
+            Integer coid,
+            @ApiParam(name = "status", value = "状态", required = true)
+            @RequestParam(name = "status", required = true)
+            String status
+    ) {
+        try {
+            CommentDomain comment = commentService.getCommentById(coid);
+            if (null != comment) {
+                commentService.updateCommentStatus(coid,status);
+            } else {
+                return APIResponse.fail("通过失败");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.error(e.getMessage());
+            return APIResponse.fail(e.getMessage());
+        }
+        return APIResponse.success();
     }
 
 }
