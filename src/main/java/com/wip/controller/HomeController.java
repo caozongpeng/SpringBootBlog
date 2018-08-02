@@ -6,6 +6,7 @@ import com.wip.constant.ErrorConstant;
 import com.wip.constant.Types;
 import com.wip.constant.WebConst;
 import com.wip.dto.MetaDto;
+import com.wip.dto.StatisticsDto;
 import com.wip.dto.cond.ContentCond;
 import com.wip.dto.cond.MetaCond;
 import com.wip.exception.BusinessException;
@@ -15,6 +16,7 @@ import com.wip.model.MetaDomain;
 import com.wip.service.article.ContentService;
 import com.wip.service.comment.CommentService;
 import com.wip.service.meta.MetaService;
+import com.wip.service.site.SiteService;
 import com.wip.utils.APIResponse;
 import com.wip.utils.IPKit;
 import com.wip.utils.TaleUtils;
@@ -29,6 +31,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.net.URLEncoder;
 import java.util.List;
 
@@ -45,9 +48,13 @@ public class HomeController extends BaseController {
     @Autowired
     private MetaService metaService;
 
+    @Autowired
+    private SiteService siteService;
+
     @GetMapping(value = "/")
     public String index(
             HttpServletRequest request,
+            HttpSession session,
             @ApiParam(name = "page", value = "页数", required = false)
             @RequestParam(name = "page", required = false, defaultValue = "1")
             int page,
@@ -56,6 +63,16 @@ public class HomeController extends BaseController {
             int limit
     ) {
         PageInfo<ContentDomain> articles = contentService.getArticlesByCond(new ContentCond(), page, limit);
+        // 分类总数
+        Long categoryCount = metaService.getMetasCountByType(Types.CATEGORY.getType());
+        // 标签总数
+        Long tagCount = metaService.getMetasCountByType(Types.TAG.getType());
+        // 获取文章总数
+        StatisticsDto statistics = siteService.getStatistics();
+
+        session.setAttribute("categoryCount",categoryCount);
+        session.setAttribute("tagCount",tagCount);
+        session.setAttribute("articleCount",statistics.getArticles());
         request.setAttribute("articles",articles);
         return "blog/home";
     }
