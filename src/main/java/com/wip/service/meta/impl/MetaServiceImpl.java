@@ -164,6 +164,14 @@ public class MetaServiceImpl implements MetaService {
     }
 
     @Override
+    @Cacheable(value = "metaCaches", key = "'metaCountByType_'+ #p0")
+    public Long getMetasCountByType(String type) {
+        if (null == type)
+            throw BusinessException.withErrorCode(ErrorConstant.Common.PARAM_IS_EMPTY);
+        return metaDao.getMetasCountByType(type);
+    }
+
+    @Override
     @Transactional
     public void deleteMetaById(Integer mid) {
         if (null == mid)

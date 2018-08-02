@@ -13,11 +13,15 @@
                 </header>
                 <div class="tag-cloud">
                     <div class="tag-cloud-title">
-                        目前共计 10个标签
+                        目前共计 <th:block th:text="${tagCount}"></th:block> 个标签
                     </div>
-                    <div class="tag-cloud-tags">
-                        <a href="{% url 'blog:tag_detail' tag.name %}" style="font-size: 12px; color:#ccc">django</a>
-                    </div>
+                    <th:block th:if="${tags}">
+                        <div th:each="tag : ${tags}" class="tag-cloud-tags">
+                            <a href="{% url 'blog:tag_detail' tag.name %}" style="font-size: 12px; color:#ccc">
+                                <th:block th:text="${tag.name}"></th:block>
+                            </a>
+                        </div>
+                    </th:block>
                 </div>
             </div>
         </div>

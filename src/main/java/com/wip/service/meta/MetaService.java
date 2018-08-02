@@ -73,4 +73,11 @@ public interface MetaService {
      * @param meta
      */
     void updateMeta(MetaDomain meta);
+
+    /**
+     * 通过类型获取项目总数
+     * @param type
+     * @return
+     */
+    Long getMetasCountByType(String type);
 }

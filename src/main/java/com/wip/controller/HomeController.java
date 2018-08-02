@@ -5,12 +5,16 @@ import com.vdurmont.emoji.EmojiParser;
 import com.wip.constant.ErrorConstant;
 import com.wip.constant.Types;
 import com.wip.constant.WebConst;
+import com.wip.dto.MetaDto;
 import com.wip.dto.cond.ContentCond;
+import com.wip.dto.cond.MetaCond;
 import com.wip.exception.BusinessException;
 import com.wip.model.CommentDomain;
 import com.wip.model.ContentDomain;
+import com.wip.model.MetaDomain;
 import com.wip.service.article.ContentService;
 import com.wip.service.comment.CommentService;
+import com.wip.service.meta.MetaService;
 import com.wip.utils.APIResponse;
 import com.wip.utils.IPKit;
 import com.wip.utils.TaleUtils;
@@ -38,6 +42,9 @@ public class HomeController extends BaseController {
     @Autowired
     private CommentService commentService;
 
+    @Autowired
+    private MetaService metaService;
+
     @GetMapping(value = "/")
     public String index(
             HttpServletRequest request,
@@ -58,13 +65,27 @@ public class HomeController extends BaseController {
         return "blog/archives";
     }
 
+    @ApiOperation("分类内容页")
     @GetMapping(value = "/categories")
-    public String categories() {
+    public String categories(HttpServletRequest request) {
+        // 获取分类
+        List<MetaDto> categories = metaService.getMetaList(Types.CATEGORY.getType(),null,WebConst.MAX_POSTS);
+        // 分类总数
+        Long categoryCount = metaService.getMetasCountByType(Types.CATEGORY.getType());
+        request.setAttribute("categories", categories);
+        request.setAttribute("categoryCount", categoryCount);
         return "blog/category";
     }
 
+    @ApiOperation("标签内容页")
     @GetMapping(value = "/tags")
-    public String tags() {
+    public String tags(HttpServletRequest request) {
+        // 获取标签
+        List<MetaDto> tags = metaService.getMetaList(Types.TAG.getType(), null, WebConst.MAX_POSTS);
+        // 标签总数
+        Long tagCount = metaService.getMetasCountByType(Types.TAG.getType());
+        request.setAttribute("tags", tags);
+        request.setAttribute("tagCount", tagCount);
         return "blog/tags";
     }
 
