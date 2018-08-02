@@ -9,6 +9,8 @@ import com.github.pagehelper.PageInfo;
 import com.wip.dto.cond.ContentCond;
 import com.wip.model.ContentDomain;
 
+import java.util.List;
+
 /**
  * 文章相关Service接口
  */
@@ -53,4 +55,11 @@ public interface ContentService {
      * @param content
      */
     void updateContentByCid(ContentDomain content);
+
+    /**
+     * 通过分类获取文章
+     * @param category
+     * @return
+     */
+    List<ContentDomain> getArticleByCategory(String category);
 }

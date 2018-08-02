@@ -48,8 +48,6 @@ public class HomeController extends BaseController {
     @Autowired
     private MetaService metaService;
 
-    @Autowired
-    private SiteService siteService;
 
     @GetMapping(value = "/")
     public String index(
@@ -63,16 +61,7 @@ public class HomeController extends BaseController {
             int limit
     ) {
         PageInfo<ContentDomain> articles = contentService.getArticlesByCond(new ContentCond(), page, limit);
-        // 分类总数
-        Long categoryCount = metaService.getMetasCountByType(Types.CATEGORY.getType());
-        // 标签总数
-        Long tagCount = metaService.getMetasCountByType(Types.TAG.getType());
-        // 获取文章总数
-        StatisticsDto statistics = siteService.getStatistics();
 
-        session.setAttribute("categoryCount",categoryCount);
-        session.setAttribute("tagCount",tagCount);
-        session.setAttribute("articleCount",statistics.getArticles());
         request.setAttribute("articles",articles);
         return "blog/home";
     }
@@ -92,6 +81,23 @@ public class HomeController extends BaseController {
         request.setAttribute("categories", categories);
         request.setAttribute("categoryCount", categoryCount);
         return "blog/category";
+    }
+
+    @ApiOperation("分类详情页")
+    @GetMapping(value = "/categories/{name}")
+    public String categoriesDetail(
+            HttpServletRequest request,
+            @ApiParam(name = "name", value = "分类名称", required = true)
+            @PathVariable("name")
+            String name
+    ) {
+        MetaDomain category = metaService.getMetaByName(Types.CATEGORY.getType(),name);
+        if (null == category.getName())
+            throw BusinessException.withErrorCode(ErrorConstant.Common.PARAM_IS_EMPTY);
+        List<ContentDomain> articles = contentService.getArticleByCategory(category.getName());
+        request.setAttribute("category", category.getName());
+        request.setAttribute("articles", articles);
+        return "blog/category_detail";
     }
 
     @ApiOperation("标签内容页")

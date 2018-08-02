@@ -64,4 +64,12 @@ public interface MetaDao {
      * @return
      */
     Long getMetasCountByType(@Param("type") String type);
+
+    /**
+     * 通过Meta名查找Meta项目
+     * @param type
+     * @param name
+     * @return
+     */
+    MetaDomain getMetaByName(@Param("type") String type, @Param("name") String name);
 }

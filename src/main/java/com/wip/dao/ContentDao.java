@@ -8,6 +8,7 @@ package com.wip.dao;
 import com.wip.dto.cond.ContentCond;
 import com.wip.model.ContentDomain;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -54,4 +55,11 @@ public interface ContentDao {
      * @return
      */
     Long getArticleCount();
+
+    /**
+     * 通过分类名获取文章
+     * @param category
+     * @return
+     */
+    List<ContentDomain> getArticleByCategory(@Param("category") String category);
 }

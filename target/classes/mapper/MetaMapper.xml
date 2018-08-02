@@ -138,6 +138,17 @@
         WHERE
           m.type = #{type, jdbcType=VARCHAR}
     </select>
+    <!--通过Meta名查找Meta项目-->
+    <select id="getMetaByName" resultType="com.wip.model.MetaDomain">
+        SELECT
+          <include refid="BASE_COLUMN"/>
+        FROM
+          <include refid="BASE_TABLE"/> AS m
+        WHERE
+          m.type = #{type, jdbcType=VARCHAR}
+        AND
+          m.name = #{name, jdbcType=VARCHAR}
+    </select>
 
 
 </mapper>

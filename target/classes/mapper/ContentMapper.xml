@@ -149,11 +149,21 @@
           cid = #{cid, jdbcType=INTEGER}
     </delete>
 
+    <!--获取文章总数-->
     <select id="getArticleCount" resultType="java.lang.Long">
         SELECT
           COUNT(*)
         FROM
           <include refid="BASE_TABLE"/>
+    </select>
+    <!--通过分类获取文章-->
+    <select id="getArticleByCategory" resultType="com.wip.model.ContentDomain">
+        SELECT
+          <include refid="BASE_COLUMN"/>
+        FROM
+          <include refid="BASE_TABLE"/> AS c
+        WHERE
+          c.categories = #{category, jdbcType=VARCHAR}
     </select>
 
 </mapper>

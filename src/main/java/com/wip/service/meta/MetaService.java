@@ -80,4 +80,12 @@ public interface MetaService {
      * @return
      */
     Long getMetasCountByType(String type);
+
+    /**
+     * 通过Meta名查找Meta项目
+     * @param type
+     * @param name
+     * @return
+     */
+    MetaDomain getMetaByName(String type, String name);
 }

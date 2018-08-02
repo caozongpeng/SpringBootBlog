@@ -2,10 +2,12 @@ package com.wip.interceptor;
 
 import com.wip.constant.Types;
 import com.wip.constant.WebConst;
+import com.wip.dto.StatisticsDto;
 import com.wip.model.OptionsDomain;
 import com.wip.model.UserDomain;
 import com.wip.service.meta.MetaService;
 import com.wip.service.option.OptionService;
+import com.wip.service.site.SiteService;
 import com.wip.service.user.UserService;
 import com.wip.utils.*;
 import org.slf4j.Logger;
@@ -17,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +45,15 @@ public class BaseInterceptor implements HandlerInterceptor {
 
     @Autowired
     private AdminCommons adminCommons;
+
+    @Autowired
+    private MetaService metaService;
+
+    @Autowired
+    private SiteService siteService;
+
+    @Autowired
+    private HttpSession session;
 
 
     private MapCache cache = MapCache.single();
@@ -89,6 +101,16 @@ public class BaseInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object o, ModelAndView view) throws Exception {
         OptionsDomain ov = optionService.getOptionByName("site_record");
+        // 分类总数
+        Long categoryCount = metaService.getMetasCountByType(Types.CATEGORY.getType());
+        // 标签总数
+        Long tagCount = metaService.getMetasCountByType(Types.TAG.getType());
+        // 获取文章总数
+        StatisticsDto statistics = siteService.getStatistics();
+
+        session.setAttribute("categoryCount",categoryCount);
+        session.setAttribute("tagCount",tagCount);
+        session.setAttribute("articleCount",statistics.getArticles());
         request.setAttribute("commons", commons);
         request.setAttribute("option", ov);
         request.setAttribute("adminCommons", adminCommons);

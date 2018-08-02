@@ -172,6 +172,14 @@ public class MetaServiceImpl implements MetaService {
     }
 
     @Override
+    @Cacheable(value = "metaCaches", key = "'metaByName_' + #p0")
+    public MetaDomain getMetaByName(String type, String name) {
+        if (null == name)
+            throw BusinessException.withErrorCode(ErrorConstant.Common.PARAM_IS_EMPTY);
+        return metaDao.getMetaByName(type,name);
+    }
+
+    @Override
     @Transactional
     public void deleteMetaById(Integer mid) {
         if (null == mid)

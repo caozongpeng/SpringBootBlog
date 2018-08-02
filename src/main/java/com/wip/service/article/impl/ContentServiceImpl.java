@@ -149,4 +149,12 @@ public class ContentServiceImpl implements ContentService {
             contentDao.updateArticleById(content);
         }
     }
+
+    @Override
+    @Cacheable(value = "articleCache", key = "'articleByCategory_' + #p0")
+    public List<ContentDomain> getArticleByCategory(String category) {
+        if (null == category)
+            throw BusinessException.withErrorCode(ErrorConstant.Common.PARAM_IS_EMPTY);
+        return contentDao.getArticleByCategory(category);
+    }
 }
