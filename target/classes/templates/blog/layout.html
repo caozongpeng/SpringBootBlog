@@ -123,12 +123,15 @@
 
             if (null == content || "" == content || undefined == content) {
                 alert("内容不能为空");
+                return false;
             }
             if (null == author || "" == author || undefined == author) {
                 alert("姓名不能为空");
+                return false;
             }
             if (null == email || "" == email || undefined == email) {
                 alert("邮箱不能为空");
+                return false;
             }
 
             var data = {
@@ -160,10 +163,6 @@
                     }
                 }
             });
-
-
-
-
         }
     </script>
 </body>

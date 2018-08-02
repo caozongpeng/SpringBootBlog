@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-      layout:decorator="blog/layout">
-<head>
-    <meta charset="UTF-8"/>
-    <title>首页</title>
-</head>
+      layout:decorator="blog/layout" th:with=" title=${article.title} + ' |',active='detail'">
+<header th:replace="blog/layout::headerFragment(${title},${active})"></header>
 <body>
 <div layout:fragment="content">
     <div class="content-wrap">
@@ -48,8 +45,24 @@
             </div>
         </div>
         <div class="comments" id="comments" style="opacity: 1; display: block;">
-            <div class="segment">
-                <h3>评论</h3>
+            <div id="comments-content" class="segment">
+                <h3 class="dividing">评论</h3>
+                <th:block th:if="${comments}">
+                    <div th:each="comment : ${comments}" class="comment">
+                        <a class="avatar">
+                            <img th:src="@{/blog/image/avatar.png}">
+                        </a>
+                        <div class="content">
+                            <a th:href="${comment.url}" target="_blank" class="author">
+                                <span th:text="${comment.author}"></span>
+                            </a>
+                            <div class="metadata">
+                                <span class="date" th:text="${commons.fmtdate(comment.created, 'yyyy-MM-dd HH:mm')}"></span>
+                            </div>
+                            <div class="text" th:text="${comment.content}"></div>
+                        </div>
+                    </div>
+                </th:block>
             </div>
             <div class="comment-form">
                 <input type="hidden" name="coid" id="coid">

@@ -36,7 +36,7 @@ public class CommentController extends BaseController {
             @RequestParam(name = "page", required = false, defaultValue = "1")
             int page,
             @ApiParam(name = "limit", value = "每页条数", required = false)
-            @RequestParam(name = "limit", required = false, defaultValue = "1")
+            @RequestParam(name = "limit", required = false, defaultValue = "15")
             int limit,
             HttpServletRequest request
 

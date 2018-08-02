@@ -26,6 +26,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
+import java.util.List;
 
 @Api("博客前台页面")
 @Controller
@@ -85,6 +86,9 @@ public class HomeController extends BaseController {
 
         // 更新文章的点击量
         this.updateArticleHits(article.getCid(),article.getHits());
+        // 获取评论
+        List<CommentDomain> comments = commentService.getCommentsByCId(cid);
+        request.setAttribute("comments", comments);
 
         return "blog/detail";
     }

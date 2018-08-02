@@ -10,13 +10,16 @@ import com.github.pagehelper.PageInfo;
 import com.wip.constant.ErrorConstant;
 import com.wip.constant.Types;
 import com.wip.constant.WebConst;
+import com.wip.dao.CommentDao;
 import com.wip.dao.ContentDao;
 import com.wip.dao.RelationShipDao;
 import com.wip.dto.cond.ContentCond;
 import com.wip.exception.BusinessException;
+import com.wip.model.CommentDomain;
 import com.wip.model.ContentDomain;
 import com.wip.model.RelationShipDomain;
 import com.wip.service.article.ContentService;
+import com.wip.service.comment.CommentService;
 import com.wip.service.meta.MetaService;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.constraints.EAN;
@@ -39,6 +42,9 @@ public class ContentServiceImpl implements ContentService {
 
     @Autowired
     private RelationShipDao relationShipDao;
+
+    @Autowired
+    private CommentDao commentDao;
 
     @Transactional
     @Override
@@ -120,6 +126,12 @@ public class ContentServiceImpl implements ContentService {
         contentDao.deleteArticleById(cid);
 
         // 同时要删除该 文章下的所有评论
+        List<CommentDomain> comments = commentDao.getCommentByCId(cid);
+        if (null != comments && comments.size() > 0) {
+            comments.forEach(comment -> {
+                commentDao.deleteComment(comment.getCoid());
+            });
+        }
 
         // 删除标签和分类关联
         List<RelationShipDomain> relationShips = relationShipDao.getRelationShipByCid(cid);

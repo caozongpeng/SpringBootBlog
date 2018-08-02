@@ -36,7 +36,29 @@
             #{content, jdbcType=LONGVARCHAR}
         </trim>
     </insert>
+    <!--根据文章ID获取评论-->
+    <select id="getCommentByCId" resultType="com.wip.model.CommentDomain">
+        SELECT
+          <include refid="BASE_COLUMN"/>
+        FROM
+          <include refid="BASE_TABLE"/> AS cm
+        WHERE
+          cm.cid = #{cid, jdbcType=INTEGER}
+          AND
+          cm.status = 'approved'
+        ORDER BY
+          cm.created
+    </select>
 
+    <!--删除评论-->
+    <delete id="deleteComment">
+        DELETE FROM
+          <include refid="BASE_TABLE"/>
+        WHERE
+          coid = #{coid, jdbcType=INTEGER}
+    </delete>
+
+    <!--获取评论总数-->
     <select id="getCommentCount" resultType="java.lang.Long">
         SELECT
           COUNT(*)
