@@ -129,5 +129,15 @@
         
     </select>
 
+    <!--根据类型获取meta总数-->
+    <select id="getMetasCountByType" resultType="java.lang.Long">
+        SELECT
+          COUNT(*)
+        FROM
+          <include refid="BASE_TABLE"/> AS m
+        WHERE
+          m.type = #{type, jdbcType=VARCHAR}
+    </select>
+
 
 </mapper>

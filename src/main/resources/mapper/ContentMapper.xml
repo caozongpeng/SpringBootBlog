@@ -149,4 +149,11 @@
           cid = #{cid, jdbcType=INTEGER}
     </delete>
 
+    <select id="getArticleCount" resultType="java.lang.Long">
+        SELECT
+          COUNT(*)
+        FROM
+          <include refid="BASE_TABLE"/>
+    </select>
+
 </mapper>

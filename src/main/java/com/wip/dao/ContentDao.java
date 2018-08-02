@@ -48,4 +48,10 @@ public interface ContentDao {
      * @param cid
      */
     void deleteArticleById(Integer cid);
+
+    /**
+     * 获取文章总数
+     * @return
+     */
+    Long getArticleCount();
 }

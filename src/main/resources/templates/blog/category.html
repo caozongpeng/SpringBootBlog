@@ -10,20 +10,24 @@
             <div id="posts" class="posts-expand">
                 <div class="category-all-page">
                     <header class="post-header" style="opacity: 1; display: block; transform: translateY(0px);">
-                        <h1 class="post-title" itemprop="name headline">分类</h1>
+                        <h1 class="post-title" itemprop="name headline">所有分类</h1>
                     </header>
                     <div class="category-all-title">
-                        目前共计 7 个分类
+                        目前共计 <th:block th:text="${categoryCount}"></th:block> 个分类
                     </div>
-                    <div class="category-all">
-                        <ul class="category-list">
-                            <li class="category-list-item">
-                                <a class="category-list-link"
-                                   href="{% url 'blog:category_detail' category.name %}">django</a>
-                                <span class="category-list-count">5</span>
-                            </li>
-                        </ul>
-                    </div>
+                    <th:block th:if="${categories}">
+                        <div th:each="category : ${categories}" class="category-all">
+                            <ul class="category-list">
+                                <li class="category-list-item">
+                                    <a class="category-list-link" href="{% url 'blog:category_detail' category.name %}">
+                                        <th:block th:text="${category.name}"></th:block>
+                                    </a>
+                                    <span class="category-list-count" th:text="${category.count}"></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </th:block>
+
                 </div>
             </div>
         </div>

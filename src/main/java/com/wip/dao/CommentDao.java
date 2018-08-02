@@ -22,6 +22,26 @@ public interface CommentDao {
     void addComment(CommentDomain comments);
 
     /**
+     * 根据文章ID获取评论
+     * @param cid
+     * @return
+     */
+    List<CommentDomain> getCommentByCId(@Param("cid") Integer cid);
+
+
+    /**
+     * 删除评论
+     * @param coid
+     */
+    void deleteComment(@Param("coid") Integer coid);
+
+    /**
+     * 获取评论总数
+     * @return
+     */
+    Long getCommentCount();
+
+    /**
      * 根据条件获取评论列表
      * @param commentCond
      * @return

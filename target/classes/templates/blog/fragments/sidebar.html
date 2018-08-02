@@ -7,28 +7,26 @@
         <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
             <div class="site-overview" style="max-height: 585px;">
                 <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-                    <img class="site-author-image" itemprop="image"
-                         src="https://tvax3.sinaimg.cn/crop.0.0.888.888.180/98c33926ly8fsvm47o22bj20oo0oo0uo.jpg"
-                         alt="Kyrie">
+                    <img class="site-author-image" itemprop="image" th:src="@{/blog/image/kyrie.jpg}" alt="Kyrie">
                     <p class="site-author-name" itemprop="name">Kyrie</p>
                     <p class="site-description motion-element" itemprop="description">关注情境</p>
                 </div>
                 <nav class="site-state motion-element">
                     <div class="site-state-item site-state-posts">
                         <a href="/archives">
-                            <span class="site-state-item-count">3</span>
+                            <span class="site-state-item-count" th:text="${session.articleCount}"></span>
                             <span class="site-state-item-name">日志</span>
                         </a>
                     </div>
                     <div class="site-state-item site-state-categories">
                         <a href="/categories">
-                            <span class="site-state-item-count">1</span>
+                            <span class="site-state-item-count" th:text="${session.categoryCount}"></span>
                             <span class="site-state-item-name">分类</span>
                         </a>
                     </div>
                     <div class="site-state-item site-state-tags">
                         <a href="/tags">
-                            <span class="site-state-item-count">1</span>
+                            <span class="site-state-item-count" th:text="${session.tagCount}"></span>
                             <span class="site-state-item-name">标签</span>
                         </a>
                     </div>

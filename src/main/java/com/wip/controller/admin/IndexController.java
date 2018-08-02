@@ -1,12 +1,18 @@
 package com.wip.controller.admin;
 
 
+import com.github.pagehelper.PageInfo;
 import com.wip.constant.LogActions;
 import com.wip.constant.WebConst;
 import com.wip.controller.BaseController;
+import com.wip.dto.StatisticsDto;
 import com.wip.exception.BusinessException;
+import com.wip.model.CommentDomain;
+import com.wip.model.ContentDomain;
+import com.wip.model.LogDomain;
 import com.wip.model.UserDomain;
 import com.wip.service.log.LogService;
+import com.wip.service.site.SiteService;
 import com.wip.service.user.UserService;
 import com.wip.utils.APIResponse;
 import com.wip.utils.GsonUtils;
@@ -22,6 +28,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 
 @Api("后台首页")
@@ -37,13 +44,29 @@ public class IndexController extends BaseController {
     @Autowired
     private LogService logService;
 
+    @Autowired
+    private SiteService siteService;
+
 
     @ApiOperation("进入首页")
     @GetMapping(value = {"","/index"})
     public String index(HttpServletRequest request) {
         LOGGER.info("Enter admin index method");
+        // 获取5条评论
+        List<CommentDomain> comments = siteService.getComments(5);
+        // 获取5篇文章
+        List<ContentDomain> contents = siteService.getNewArticles(5);
+        // 获取后台统计数
+        StatisticsDto statistics = siteService.getStatistics();
 
+        // 获取5篇日志
+        PageInfo<LogDomain> logs = logService.getLogs(1,5);
+        List<LogDomain> list = logs.getList();
 
+        request.setAttribute("comments",comments);
+        request.setAttribute("articles",contents);
+        request.setAttribute("statistics",statistics);
+        request.setAttribute("logs",list);
         LOGGER.info("Exit admin index method");
         return "admin/index";
     }

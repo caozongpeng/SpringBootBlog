@@ -177,6 +177,7 @@ public class ArticleController extends BaseController {
         contentDomain.setType(type);
         contentDomain.setStatus(status);
         contentDomain.setHits(1);
+        contentDomain.setCommentsNum(0);
         // 只允许博客文章有分类，防止作品被收入分类
         contentDomain.setTags(type.equals(Types.ARTICLE.getType()) ? tags : null);
         contentDomain.setCategories(type.equals(Types.ARTICLE.getType()) ? categories : null);

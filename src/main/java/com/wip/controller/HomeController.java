@@ -5,12 +5,18 @@ import com.vdurmont.emoji.EmojiParser;
 import com.wip.constant.ErrorConstant;
 import com.wip.constant.Types;
 import com.wip.constant.WebConst;
+import com.wip.dto.MetaDto;
+import com.wip.dto.StatisticsDto;
 import com.wip.dto.cond.ContentCond;
+import com.wip.dto.cond.MetaCond;
 import com.wip.exception.BusinessException;
 import com.wip.model.CommentDomain;
 import com.wip.model.ContentDomain;
+import com.wip.model.MetaDomain;
 import com.wip.service.article.ContentService;
 import com.wip.service.comment.CommentService;
+import com.wip.service.meta.MetaService;
+import com.wip.service.site.SiteService;
 import com.wip.utils.APIResponse;
 import com.wip.utils.IPKit;
 import com.wip.utils.TaleUtils;
@@ -25,7 +31,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.net.URLEncoder;
+import java.util.List;
 
 @Api("博客前台页面")
 @Controller
@@ -37,9 +45,16 @@ public class HomeController extends BaseController {
     @Autowired
     private CommentService commentService;
 
+    @Autowired
+    private MetaService metaService;
+
+    @Autowired
+    private SiteService siteService;
+
     @GetMapping(value = "/")
     public String index(
             HttpServletRequest request,
+            HttpSession session,
             @ApiParam(name = "page", value = "页数", required = false)
             @RequestParam(name = "page", required = false, defaultValue = "1")
             int page,
@@ -48,6 +63,16 @@ public class HomeController extends BaseController {
             int limit
     ) {
         PageInfo<ContentDomain> articles = contentService.getArticlesByCond(new ContentCond(), page, limit);
+        // 分类总数
+        Long categoryCount = metaService.getMetasCountByType(Types.CATEGORY.getType());
+        // 标签总数
+        Long tagCount = metaService.getMetasCountByType(Types.TAG.getType());
+        // 获取文章总数
+        StatisticsDto statistics = siteService.getStatistics();
+
+        session.setAttribute("categoryCount",categoryCount);
+        session.setAttribute("tagCount",tagCount);
+        session.setAttribute("articleCount",statistics.getArticles());
         request.setAttribute("articles",articles);
         return "blog/home";
     }
@@ -57,13 +82,27 @@ public class HomeController extends BaseController {
         return "blog/archives";
     }
 
+    @ApiOperation("分类内容页")
     @GetMapping(value = "/categories")
-    public String categories() {
+    public String categories(HttpServletRequest request) {
+        // 获取分类
+        List<MetaDto> categories = metaService.getMetaList(Types.CATEGORY.getType(),null,WebConst.MAX_POSTS);
+        // 分类总数
+        Long categoryCount = metaService.getMetasCountByType(Types.CATEGORY.getType());
+        request.setAttribute("categories", categories);
+        request.setAttribute("categoryCount", categoryCount);
         return "blog/category";
     }
 
+    @ApiOperation("标签内容页")
     @GetMapping(value = "/tags")
-    public String tags() {
+    public String tags(HttpServletRequest request) {
+        // 获取标签
+        List<MetaDto> tags = metaService.getMetaList(Types.TAG.getType(), null, WebConst.MAX_POSTS);
+        // 标签总数
+        Long tagCount = metaService.getMetasCountByType(Types.TAG.getType());
+        request.setAttribute("tags", tags);
+        request.setAttribute("tagCount", tagCount);
         return "blog/tags";
     }
 
@@ -85,6 +124,9 @@ public class HomeController extends BaseController {
 
         // 更新文章的点击量
         this.updateArticleHits(article.getCid(),article.getHits());
+        // 获取评论
+        List<CommentDomain> comments = commentService.getCommentsByCId(cid);
+        request.setAttribute("comments", comments);
 
         return "blog/detail";
     }

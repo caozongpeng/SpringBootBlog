@@ -9,6 +9,8 @@ import com.github.pagehelper.PageInfo;
 import com.wip.dto.cond.CommentCond;
 import com.wip.model.CommentDomain;
 
+import java.util.List;
+
 public interface CommentService {
 
     /**
@@ -16,6 +18,13 @@ public interface CommentService {
      * @param comments
      */
     void addComment(CommentDomain comments);
+
+    /**
+     * 通过文章ID获取评论
+     * @param cid
+     * @return
+     */
+    List<CommentDomain> getCommentsByCId(Integer cid);
 
     /**
      * 根据条件获取评论列表
