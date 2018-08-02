@@ -6,6 +6,9 @@
 package com.wip.service.log;
 
 
+import com.github.pagehelper.PageInfo;
+import com.wip.model.LogDomain;
+
 /**
  * 日志相关Service接口
  */
@@ -20,5 +23,11 @@ public interface LogService {
      */
     void addLog(String action, String data, String ip, Integer authorId);
 
-
+    /**
+     * 获取日志
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    PageInfo<LogDomain> getLogs(int pageNum, int pageSize);
 }

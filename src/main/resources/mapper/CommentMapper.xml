@@ -37,6 +37,13 @@
         </trim>
     </insert>
 
+    <select id="getCommentCount" resultType="java.lang.Long">
+        SELECT
+          COUNT(*)
+        FROM
+          <include refid="BASE_TABLE"/>
+    </select>
+
     <!--根据条件查找评论列表-->
     <select id="getCommentsByCond" resultType="com.wip.model.CommentDomain" parameterType="com.wip.dto.cond.CommentCond">
         SELECT

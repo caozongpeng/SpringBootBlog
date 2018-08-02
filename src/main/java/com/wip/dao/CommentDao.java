@@ -21,6 +21,12 @@ public interface CommentDao {
     void addComment(CommentDomain comments);
 
     /**
+     * 获取评论总数
+     * @return
+     */
+    Long getCommentCount();
+
+    /**
      * 根据条件获取评论列表
      * @param commentCond
      * @return

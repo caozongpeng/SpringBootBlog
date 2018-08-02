@@ -57,4 +57,11 @@ public interface MetaDao {
      * @param mid
      */
     void deleteMetaById(Integer mid);
+
+    /**
+     * 根据类型获取meta数量
+     * @param type
+     * @return
+     */
+    Long getMetasCountByType(@Param("type") String type);
 }
