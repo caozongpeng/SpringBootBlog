@@ -45,6 +45,9 @@ public class APIResponse <T> {
         return new APIResponse(CODE_FAIL,msg);
     }
 
+    public static APIResponse widthCode(String errorCode) {
+        return new APIResponse(errorCode);
+    }
 
     public String getCode() {
         return code;

@@ -3073,8 +3073,9 @@ span.highlighted {
 }
 .fields .field {
   flex: 0 1 auto;
-  display: inline-block;
+  display: block;
   padding-right: 4px;
+  margin-bottom: 10px;
 }
 .fields .field input {
   font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
@@ -3092,6 +3093,7 @@ span.highlighted {
   box-shadow: 0 0 0 0 transparent inset;
   -webkit-transition: color .1s ease,border-color .1s ease;
   transition: color .1s ease,border-color .1s ease;
+  width: 96%;
 }
 .comment-button {
   margin-top: 15px;

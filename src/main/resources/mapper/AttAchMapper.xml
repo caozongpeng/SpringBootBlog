@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wip.dao.AttAchDao">
+
+    <!--表名-->
+    <sql id="BASE_TABLE">
+        t_attach
+    </sql>
+    <!--文章表列名-->
+    <sql id="BASE_COLUMN">
+        aa.id, aa.fname, aa.ftype, aa.fkey, aa.authorId, aa.created
+    </sql>
+
+
+
+
+</mapper>

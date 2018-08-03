@@ -9,6 +9,8 @@ import com.wip.utils.APIResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.text.MessageFormat;
+
 /**
  * 统一异常类
  */
@@ -45,5 +47,24 @@ public class BusinessException extends RuntimeException {
         return this.errorCode;
     }
 
+    public String[] getErrorMessageArguments() {
+        return this.errorMessageArguments = errorMessageArguments;
+    }
 
+
+    public APIResponse response() {
+        if (this.apiResponse != null) {
+            return this.apiResponse;
+        } else {
+            this.apiResponse = APIResponse.widthCode(this.getErrorCode());
+            if (this.getErrorMessageArguments() != null && this.getErrorMessageArguments().length > 0) {
+                try {
+                    this.apiResponse.setMsg(MessageFormat.format(this.apiResponse.getMsg(),this.getErrorMessageArguments()));
+                } catch (Exception var2) {
+                    LOGGER.error(var2.getMessage());
+                }
+            }
+            return this.apiResponse;
+        }
+    }
 }
