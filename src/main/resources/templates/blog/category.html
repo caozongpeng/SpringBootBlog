@@ -19,9 +19,17 @@
                         <div th:each="category : ${categories}" class="category-all">
                             <ul class="category-list">
                                 <li class="category-list-item">
-                                    <a class="category-list-link" th:href="@{'/categories/'+${category.name}}">
-                                        <th:block th:text="${category.name}"></th:block>
-                                    </a>
+                                    <th:block th:if="${category.count != 0}">
+                                        <a class="category-list-link" th:href="@{'/categories/'+${category.name}}">
+                                            <th:block th:text="${category.name}"></th:block>
+                                        </a>
+                                    </th:block>
+                                    <th:block th:unless="${category.count != 0}">
+                                        <a class="category-list-link">
+                                            <th:block th:text="${category.name}"></th:block>
+                                        </a>
+                                    </th:block>
+
                                     <span class="category-list-count" th:text="${category.count}"></span>
                                 </li>
                             </ul>

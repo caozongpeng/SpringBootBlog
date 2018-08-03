@@ -12,7 +12,7 @@
                     <div class="collection-title" style="opacity: 1; display: block; transform: translateX(0px);">
                         <h1 style="margin:0 0 0 20px;"><th:block th:text="${category}"></th:block><small style="margin-left: 5px;">分类</small></h1>
                     </div>
-                    <th:block th:if="${articles != null}">
+                    <th:block th:if="${articles}">
                         <article class="post post-type-normal" th:each="article : ${articles}">
                             <header class="post-header" style="opacity: 1; display: block; transform: translateY(0px);">
                                 <h2 class="post-title">
@@ -26,10 +26,6 @@
                             </header>
                         </article>
                     </th:block>
-                    <th:block th:unless="${articles != null}">
-                        <h5>前端分类无文章</h5>
-                    </th:block>
-
                 </div>
             </div>
         </div>

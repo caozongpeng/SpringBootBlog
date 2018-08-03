@@ -52,7 +52,6 @@ public class HomeController extends BaseController {
     @GetMapping(value = "/")
     public String index(
             HttpServletRequest request,
-            HttpSession session,
             @ApiParam(name = "page", value = "页数", required = false)
             @RequestParam(name = "page", required = false, defaultValue = "1")
             int page,
@@ -66,8 +65,19 @@ public class HomeController extends BaseController {
         return "blog/home";
     }
 
+    @ApiOperation("归档内容页")
     @GetMapping(value = "/archives")
-    public String archives() {
+    public String archives(
+            HttpServletRequest request,
+            @ApiParam(name = "page", value = "页数", required = false)
+            @RequestParam(name = "page", required = false, defaultValue = "1")
+            int page,
+            @ApiParam(name = "limit", value = "每页数量", required = false)
+            @RequestParam(name = "limit", required = false, defaultValue = "10")
+            int limit
+    ) {
+        PageInfo<ContentDomain> articles = contentService.getArticlesByCond(new ContentCond(), page, limit);
+        request.setAttribute("articles", articles);
         return "blog/archives";
     }
 
