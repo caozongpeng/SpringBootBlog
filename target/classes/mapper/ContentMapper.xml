@@ -166,4 +166,16 @@
           c.categories = #{category, jdbcType=VARCHAR}
     </select>
 
+    <!--通过标签获取 文章-->
+    <select id="getArticleByTags" resultType="com.wip.model.ContentDomain">
+        SELECT
+          <include refid="BASE_COLUMN"/>
+        FROM
+          <include refid="BASE_TABLE"/> AS c
+        WHERE
+          c.cid IN
+        <foreach collection="list" item="param" index="index" open="(" close=")" separator=",">
+            #{param.cid, jdbcType=INTEGER}
+        </foreach>
+    </select>
 </mapper>

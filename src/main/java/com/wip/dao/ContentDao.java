@@ -7,6 +7,7 @@ package com.wip.dao;
 
 import com.wip.dto.cond.ContentCond;
 import com.wip.model.ContentDomain;
+import com.wip.model.RelationShipDomain;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -62,4 +63,11 @@ public interface ContentDao {
      * @return
      */
     List<ContentDomain> getArticleByCategory(@Param("category") String category);
+
+    /**
+     * 通过标签获取文章
+     * @param cid
+     * @return
+     */
+    List<ContentDomain> getArticleByTags(List<RelationShipDomain> cid);
 }

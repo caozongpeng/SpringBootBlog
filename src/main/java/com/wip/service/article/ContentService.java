@@ -8,6 +8,7 @@ package com.wip.service.article;
 import com.github.pagehelper.PageInfo;
 import com.wip.dto.cond.ContentCond;
 import com.wip.model.ContentDomain;
+import com.wip.model.MetaDomain;
 
 import java.util.List;
 
@@ -62,4 +63,11 @@ public interface ContentService {
      * @return
      */
     List<ContentDomain> getArticleByCategory(String category);
+
+    /**
+     * 通过标签获取文章
+     * @param tags
+     * @return
+     */
+    List<ContentDomain> getArticleByTags(MetaDomain tags);
 }

@@ -122,6 +122,21 @@ public class HomeController extends BaseController {
         return "blog/tags";
     }
 
+    @ApiOperation("标签详情页")
+    @GetMapping(value = "/tags/{name}")
+    public String tagsDetail(
+            HttpServletRequest request,
+            @ApiParam(name = "name", value = "标签名", required = true)
+            @PathVariable("name")
+            String name
+    ) {
+        MetaDomain tags = metaService.getMetaByName(Types.TAG.getType(),name);
+        List<ContentDomain> articles = contentService.getArticleByTags(tags);
+        request.setAttribute("articles",articles);
+        request.setAttribute("tags",tags.getName());
+        return "blog/tags_detail";
+    }
+
     @GetMapping(value = "/about")
     public String about() {
         return "blog/about";

@@ -5,6 +5,8 @@ import com.wip.constant.WebConst;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 
@@ -31,6 +33,16 @@ public class Commons {
         }
         Random random = new Random(seed);
         return random.nextInt(max) +str;
+    }
+
+    /**
+     * 生成指定范围的随机整数
+     * @param member
+     * @return
+     */
+    public static String randomInt(int member,String suf) {
+        Random random = new Random();
+        return random.nextInt(member) + member + suf;
     }
 
     /**
@@ -165,6 +177,23 @@ public class Commons {
         return EmojiParser.parseToUnicode(value);
     }
 
+
+    /**
+     * 获取社交的链接地址
+     * @return
+     */
+    public static Map<String, String> social() {
+        final String prefix = "social_";
+        Map<String, String> map = new HashMap<>();
+        map.put("csdn", WebConst.initConfig.get(prefix + "csdn"));
+        map.put("jianshu", WebConst.initConfig.get(prefix + "jianshu"));
+        map.put("resume", WebConst.initConfig.get(prefix + "resume"));
+        map.put("weibo", WebConst.initConfig.get(prefix + "weibo"));
+        map.put("zhihu", WebConst.initConfig.get(prefix + "zhihu"));
+        map.put("github", WebConst.initConfig.get(prefix + "github"));
+        map.put("twitter", WebConst.initConfig.get(prefix + "twitter"));
+        return map;
+    }
 
 
 

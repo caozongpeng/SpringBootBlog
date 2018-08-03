@@ -1,5 +1,5 @@
 server:
-  port: 8888
+  port: 9000
 spring:
   datasource:
     name: mysql_test

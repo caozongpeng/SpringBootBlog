@@ -2,6 +2,7 @@ package com.wip.interceptor;
 
 import com.wip.constant.Types;
 import com.wip.constant.WebConst;
+import com.wip.dto.MetaDto;
 import com.wip.dto.StatisticsDto;
 import com.wip.model.OptionsDomain;
 import com.wip.model.UserDomain;
@@ -107,10 +108,13 @@ public class BaseInterceptor implements HandlerInterceptor {
         Long tagCount = metaService.getMetasCountByType(Types.TAG.getType());
         // 获取文章总数
         StatisticsDto statistics = siteService.getStatistics();
+        // 获取友情链接
+        List<MetaDto> links = metaService.getMetaList(Types.LINK.getType(),null,WebConst.MAX_POSTS);
 
         session.setAttribute("categoryCount",categoryCount);
         session.setAttribute("tagCount",tagCount);
         session.setAttribute("articleCount",statistics.getArticles());
+        session.setAttribute("links",links);
         request.setAttribute("commons", commons);
         request.setAttribute("option", ov);
         request.setAttribute("adminCommons", adminCommons);

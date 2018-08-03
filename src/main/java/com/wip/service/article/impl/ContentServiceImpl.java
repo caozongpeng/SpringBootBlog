@@ -17,12 +17,11 @@ import com.wip.dto.cond.ContentCond;
 import com.wip.exception.BusinessException;
 import com.wip.model.CommentDomain;
 import com.wip.model.ContentDomain;
+import com.wip.model.MetaDomain;
 import com.wip.model.RelationShipDomain;
 import com.wip.service.article.ContentService;
-import com.wip.service.comment.CommentService;
 import com.wip.service.meta.MetaService;
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.validator.constraints.EAN;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -156,5 +155,17 @@ public class ContentServiceImpl implements ContentService {
         if (null == category)
             throw BusinessException.withErrorCode(ErrorConstant.Common.PARAM_IS_EMPTY);
         return contentDao.getArticleByCategory(category);
+    }
+
+    @Override
+    @Cacheable(value = "articleCache", key = "'articleByTags_'+ #p0")
+    public List<ContentDomain> getArticleByTags(MetaDomain tags) {
+        if (null == tags)
+            throw BusinessException.withErrorCode(ErrorConstant.Common.PARAM_IS_EMPTY);
+        List<RelationShipDomain> relationShip = relationShipDao.getRelationShipByMid(tags.getMid());
+        if (null != relationShip && relationShip.size() > 0) {
+            return contentDao.getArticleByTags(relationShip);
+        }
+        return null;
     }
 }
