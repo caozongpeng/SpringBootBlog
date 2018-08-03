@@ -10,6 +10,9 @@ import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
+/**
+ * 网站选项相关Dao接口
+ */
 @Mapper
 public interface OptionDao {
 

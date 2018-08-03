@@ -5,6 +5,9 @@
  **/
 package com.wip.constant;
 
+/**
+ * 错误常量处理接口
+ */
 public interface ErrorConstant {
 
     interface Common {

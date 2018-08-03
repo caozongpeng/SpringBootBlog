@@ -5,6 +5,9 @@
  **/
 package com.wip.model;
 
+/**
+ * 评论表
+ */
 public class CommentDomain {
     /**
      * comment表主键

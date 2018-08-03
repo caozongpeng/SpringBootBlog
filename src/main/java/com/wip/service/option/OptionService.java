@@ -10,6 +10,9 @@ import com.wip.model.OptionsDomain;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 网站选项相关Service接口
+ */
 public interface OptionService {
 
     /**

@@ -5,6 +5,9 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 系统常量
+ */
 @Component
 public class WebConst {
 

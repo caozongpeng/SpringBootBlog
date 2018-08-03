@@ -12,7 +12,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * 中间表
+ * 文章和项目关联表
  */
 @Mapper
 public interface RelationShipDao {

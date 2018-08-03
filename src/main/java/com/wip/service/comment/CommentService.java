@@ -11,6 +11,9 @@ import com.wip.model.CommentDomain;
 
 import java.util.List;
 
+/**
+ * 评论相关Service接口
+ */
 public interface CommentService {
 
     /**

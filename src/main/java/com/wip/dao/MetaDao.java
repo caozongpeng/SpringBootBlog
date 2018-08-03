@@ -14,6 +14,9 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 项目相关Dao接口
+ */
 @Mapper
 public interface MetaDao {
 

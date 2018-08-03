@@ -12,6 +12,9 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+/**
+ * 评论相关Dao接口
+ */
 @Mapper
 public interface CommentDao {
 

@@ -35,5 +35,5 @@ public enum Types {
     Types(java.lang.String type) {
         this.type = type;
     }
-    }
+}
 

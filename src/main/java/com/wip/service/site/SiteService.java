@@ -11,6 +11,9 @@ import com.wip.model.ContentDomain;
 
 import java.util.List;
 
+/**
+ * 网站相关Service接口
+ */
 public interface SiteService {
 
     /**

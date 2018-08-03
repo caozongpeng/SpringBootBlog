@@ -6,7 +6,7 @@
 package com.wip.model;
 
 /**
- * 网站图片文件相关
+ * 网站图片文件相关表
  */
 public class AttAchDomain {
 
