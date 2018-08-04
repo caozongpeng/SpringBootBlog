@@ -3,6 +3,7 @@ package com.wip.controller.admin;
 import com.github.pagehelper.PageInfo;
 import com.wip.api.QiNiuCloudService;
 import com.wip.constant.ErrorConstant;
+import com.wip.constant.LogActions;
 import com.wip.constant.Types;
 import com.wip.constant.WebConst;
 import com.wip.controller.BaseController;
@@ -11,6 +12,7 @@ import com.wip.exception.BusinessException;
 import com.wip.model.AttAchDomain;
 import com.wip.model.UserDomain;
 import com.wip.service.attach.AttAchService;
+import com.wip.service.log.LogService;
 import com.wip.utils.APIResponse;
 import com.wip.utils.Commons;
 import com.wip.utils.TaleUtils;
@@ -40,6 +42,9 @@ public class AttachController extends BaseController {
 
     @Autowired
     private AttAchService attAchService;
+
+    @Autowired
+    private LogService logService;
 
 
 
@@ -112,5 +117,27 @@ public class AttachController extends BaseController {
 
     }
 
+    @ApiOperation("删除文件")
+    @PostMapping(value = "/delete")
+    @ResponseBody
+    public APIResponse deleteFileInfo(
+            HttpServletRequest request,
+            @ApiParam(name = "id", value = "文件主键", required = true)
+            @RequestParam(name = "id", required = true)
+            Integer id
+    ) {
+        try {
+            AttAchDto attach = attAchService.getAttAchById(id);
+            if (null == attach)
+                throw BusinessException.withErrorCode(ErrorConstant.Att.DELETE_ATT_FAIL + ": 文件不存在");
+            attAchService.deleteAttAch(id);
+            // 写入日志
+            logService.addLog(LogActions.DEL_ATTACH.getAction(),this.user(request).getUsername()+"用户",request.getRemoteAddr(),this.getUid(request));
+            return APIResponse.success();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw BusinessException.withErrorCode(e.getMessage());
+        }
+    }
 
 }

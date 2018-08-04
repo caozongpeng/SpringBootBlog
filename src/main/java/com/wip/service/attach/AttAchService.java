@@ -27,4 +27,17 @@ public interface AttAchService {
      * @return
      */
     PageInfo<AttAchDto> getAtts(int pageNum, int pageSize);
+
+    /**
+     * 通过ID获取附件信息
+     * @param id
+     * @return
+     */
+    AttAchDto getAttAchById(Integer id);
+
+    /**
+     * 通过ID删除附件信息
+     * @param id
+     */
+    void deleteAttAch(Integer id);
 }

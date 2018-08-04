@@ -8,6 +8,7 @@ package com.wip.dao;
 import com.wip.dto.AttAchDto;
 import com.wip.model.AttAchDomain;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -28,4 +29,23 @@ public interface AttAchDao {
      * @return
      */
     List<AttAchDto> getAtts();
+
+    /**
+     * 获取附件总数
+     * @return
+     */
+    Long getAttAchCount();
+
+    /**
+     * 通过ID获取附件信息
+     * @param id
+     * @return
+     */
+    AttAchDto getAttAchById(@Param("id") Integer id);
+
+    /**
+     * 通过ID删除附件信息
+     * @param id
+     */
+    void deleteAttAch(@Param("id") Integer id);
 }

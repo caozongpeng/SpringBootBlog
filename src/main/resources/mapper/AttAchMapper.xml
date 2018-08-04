@@ -23,7 +23,6 @@
     </sql>
 
 
-
     <!--新增单个附件-->
     <insert id="addAttAch" parameterType="com.wip.model.AttAchDomain">
         INSERT INTO
@@ -61,6 +60,37 @@
             aa.created DESC
     </select>
 
+    <!--获取附件总数-->
+    <select id="getAttAchCount" resultType="java.lang.Long">
+        SELECT
+          COUNT(*)
+        FROM
+          <include refid="BASE_TABLE"/>
+    </select>
 
+    <!--通过ID获取附件信息-->
+    <select id="getAttAchById" resultType="com.wip.dto.AttAchDto">
+        SELECT
+            <trim suffix="" suffixOverrides=",">
+                <include refid="BASE_COLUMN"/>
+                <include refid="REL_USER_COLUMN"/>
+            </trim>
+        FROM
+            <include refid="BASE_TABLE"/> AS aa
+        LEFT JOIN
+            <include refid="TABLE_USER"/> AS u
+        ON
+            aa.authorId = u.uid
+        WHERE
+            aa.id = #{id, jdbcType=INTEGER}
+    </select>
+
+    <!--通过ID删除附件信息-->
+    <delete id="deleteAttAch">
+        DELETE FROM
+          <include refid="BASE_TABLE"/>
+        WHERE
+          id = #{id, jdbcType=INTEGER}
+    </delete>
 
 </mapper>

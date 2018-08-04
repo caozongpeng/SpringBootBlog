@@ -45,4 +45,20 @@ public class AttAchServiceImpl implements AttAchService {
         PageInfo<AttAchDto> pageInfo = new PageInfo<>(atts);
         return pageInfo;
     }
+
+    @Override
+    @Cacheable(value = "attCaches", key = "'attAchByid' + #p0")
+    public AttAchDto getAttAchById(Integer id) {
+        if (null == id)
+            throw BusinessException.withErrorCode(ErrorConstant.Common.PARAM_IS_EMPTY);
+        return attAchDao.getAttAchById(id);
+    }
+
+    @Override
+    @CacheEvict(value = {"attCaches", "attCache"}, allEntries = true, beforeInvocation = true)
+    public void deleteAttAch(Integer id) {
+        if (null == id)
+            throw BusinessException.withErrorCode(ErrorConstant.Common.PARAM_IS_EMPTY);
+        attAchDao.deleteAttAch(id);
+    }
 }

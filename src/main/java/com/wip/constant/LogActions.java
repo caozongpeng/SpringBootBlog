@@ -9,7 +9,8 @@ public enum LogActions {
     UP_PWD("修改密码"),
     UP_INFO("修改个人信息"),
     DEL_ARTICLE("删除文章"),
-    SYS_SETTING("保存系统设置");
+    SYS_SETTING("保存系统设置"),
+    DEL_ATTACH("删除附件");
 
     private String action;
 

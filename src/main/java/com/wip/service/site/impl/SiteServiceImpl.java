@@ -7,6 +7,7 @@ package com.wip.service.site.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.wip.constant.Types;
+import com.wip.dao.AttAchDao;
 import com.wip.dao.CommentDao;
 import com.wip.dao.ContentDao;
 import com.wip.dao.MetaDao;
@@ -37,6 +38,9 @@ public class SiteServiceImpl implements SiteService {
 
     @Autowired
     private MetaDao metaDao;
+
+    @Autowired
+    private AttAchDao attAchDao;
 
 
 
@@ -81,11 +85,13 @@ public class SiteServiceImpl implements SiteService {
         Long links = metaDao.getMetasCountByType(Types.LINK.getType());
 
         // 获取附件数
+        Long attAches = attAchDao.getAttAchCount();
 
         StatisticsDto rs = new StatisticsDto();
         rs.setArticles(articles);
         rs.setComments(comments);
         rs.setLinks(links);
+        rs.setAttachs(attAches);
         LOGGER.debug("Exit recentStatistics method");
         return rs;
     }
