@@ -28,16 +28,26 @@ Kyrie Blog是由SpringBoot1.5 + MyBatis + Thymeleaf等技术实现的个人网�
 ### 预览效果
 #### 前端效果
 ![index](http://pcschpyz4.bkt.clouddn.com/index.png)
+
 ![archives](http://pcschpyz4.bkt.clouddn.com/archives.png)
+
 ![detail](http://pcschpyz4.bkt.clouddn.com/detail.png)
+
 ![category](http://pcschpyz4.bkt.clouddn.com/category.png)
+
 ![about](http://pcschpyz4.bkt.clouddn.com/about.png)
+
 #### 后端效果
 ![adminlogin](http://pcschpyz4.bkt.clouddn.com/adminlogin.png)
+
 ![adminindex](http://pcschpyz4.bkt.clouddn.com/adminindex.png)
+
 ![articlepublish](http://pcschpyz4.bkt.clouddn.com/articlepublish.png)
+
 ![articlemanager](http://pcschpyz4.bkt.clouddn.com/articlemanager.png)
+
 ![filemanager](http://pcschpyz4.bkt.clouddn.com/filemanager.png)
+
 ![setting](http://pcschpyz4.bkt.clouddn.com/setting.png)
 
 ### 安装
