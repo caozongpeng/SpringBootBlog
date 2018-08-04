@@ -78,5 +78,22 @@ public abstract class UUID {
         // 返回字符串
         return new String(cs);
     }
+    public static String UU32(java.util.UUID uuid) {
+        StringBuilder sb = new StringBuilder();
+        long m = uuid.getMostSignificantBits();
+        long l = uuid.getLeastSignificantBits();
+        for (int i = 0; i < 13; i++) {
+            sb.append(_UU32[(int) (m >> ((13 - i - 1) * 5)) & 31]);
+        }
+        for (int i = 0; i < 13; i++) {
+            sb.append(_UU32[(int) (m >> ((13 - i - 1) * 5)) & 31]);
+        }
+        return sb.toString();
+    }
+
+    public static String UU32() {
+        return UU32(java.util.UUID.randomUUID());
+    }
+
 
 }

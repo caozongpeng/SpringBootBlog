@@ -1,6 +1,7 @@
 package com.wip.utils;
 
 import com.wip.constant.WebConst;
+import com.wip.controller.admin.AttachController;
 import com.wip.model.UserDomain;
 import org.apache.commons.lang3.StringUtils;
 import org.commonmark.Extension;
@@ -8,14 +9,20 @@ import org.commonmark.ext.gfm.tables.TablesExtension;
 import org.commonmark.node.Node;
 import org.commonmark.renderer.html.HtmlRenderer;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.swing.text.html.parser.Parser;
+import java.awt.*;
+import java.io.File;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -96,6 +103,62 @@ public class TaleUtils {
             response.addCookie(cookie);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * 获取保存文件的位置，jar所在的目录的路径
+     * @return
+     */
+    public static String getUploadFilePath() {
+        String path = TaleUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+        path = path.substring(1, path.length());
+        try {
+            java.net.URLDecoder.decode(path, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        int lastIndex = path.lastIndexOf("/") + 1;
+        path = path.substring(0, lastIndex);
+        File file = new File("");
+        return file.getAbsolutePath() + "/";
+    }
+
+    public static String getFileKey(String name) {
+        String prefix = "/upload/" + DateKit.dateFormat(new Date(), "yyyy/MM");
+        if (!new File(AttachController.CLASSPATH + prefix).exists()) {
+            new File(AttachController.CLASSPATH + prefix).mkdirs();
+        }
+        name = StringUtils.trimToNull(name);
+        if (name == null) {
+            return prefix + "/" + UUID.UU32() + "." + null;
+        } else {
+            name = name.replace('\\','/');
+            name = name.substring(name.lastIndexOf("/") + 1);
+            int index = name.lastIndexOf(".");
+            String ext = null;
+            if (index > 0) {
+                ext = StringUtils.trimToNull(name.substring(index + 1));
+            }
+            return prefix + "/" + UUID.UU32() + "." + (ext == null ? null : (ext));
+        }
+    }
+
+    /**
+     * 判断文件是否是图片类型
+     * @param imageFile
+     * @return
+     */
+    public static boolean isImage(InputStream imageFile) {
+        try {
+            Image img = ImageIO.read(imageFile);
+            if (img == null || img.getWidth(null) <= 0 || img.getHeight(null) <= 0) {
+                return false;
+            }
+            return true;
+        } catch (Exception e) {
+            return false;
+
         }
     }
 

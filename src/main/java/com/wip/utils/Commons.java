@@ -1,5 +1,6 @@
 package com.wip.utils;
 
+import com.github.pagehelper.PageInfo;
 import com.vdurmont.emoji.EmojiParser;
 import com.wip.constant.WebConst;
 import org.apache.commons.lang3.StringUtils;
@@ -152,6 +153,20 @@ public class Commons {
     }
 
     /**
+     * 截取字符串
+     *
+     * @param str
+     * @param len
+     * @return
+     */
+    public static String substr(String str, int len) {
+        if (str.length() > len) {
+            return str.substring(0, len);
+        }
+        return str;
+    }
+
+    /**
      * 显示文章内容，转换markdown为HTML
      * @param value
      * @return
@@ -193,6 +208,15 @@ public class Commons {
         map.put("github", WebConst.initConfig.get(prefix + "github"));
         map.put("twitter", WebConst.initConfig.get(prefix + "twitter"));
         return map;
+    }
+
+    /**
+     * 判断分页中是否有数据
+     * @param pageInfo
+     * @return
+     */
+    public static boolean is_empty(PageInfo pageInfo) {
+        return pageInfo == null || (pageInfo.getList() == null) || (pageInfo.getList().size() == 0);
     }
 
 

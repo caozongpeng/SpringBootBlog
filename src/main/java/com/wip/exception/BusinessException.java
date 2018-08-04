@@ -51,6 +51,13 @@ public class BusinessException extends RuntimeException {
         return this.errorMessageArguments = errorMessageArguments;
     }
 
+    public BusinessException withErrorMessageArguments(String... errorMessageArguments) {
+        if(errorMessageArguments != null) {
+            this.errorMessageArguments = errorMessageArguments;
+        }
+
+        return this;
+    }
 
     public APIResponse response() {
         if (this.apiResponse != null) {

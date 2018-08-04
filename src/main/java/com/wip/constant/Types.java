@@ -20,7 +20,16 @@ public enum Types {
     // 友情链接
     LINK("link"),
     // 评论
-    COMMENTS_FREQUENCY("comments:frequency");
+    COMMENTS_FREQUENCY("comments:frequency"),
+    // 图片
+    IMAGE("image"),
+    // 文件
+    FILE("file"),
+    /**
+     * 附件存在的URL，默认为网站地址，如集成第三方则为第三方CND域名
+     */
+    // ATTACH_URL("attach_url");
+    ATTACH_URL("http://pb84kab39.bkt.clouddn.com/");
 
     private String type;
 

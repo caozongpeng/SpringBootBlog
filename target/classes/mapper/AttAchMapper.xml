@@ -6,11 +6,60 @@
     <sql id="BASE_TABLE">
         t_attach
     </sql>
-    <!--文章表列名-->
+
+    <!--附件表列名-->
     <sql id="BASE_COLUMN">
-        aa.id, aa.fname, aa.ftype, aa.fkey, aa.authorId, aa.created
+        aa.id, aa.fname, aa.ftype, aa.fkey, aa.authorId, aa.created,
     </sql>
 
+    <!--用户表-->
+    <sql id="TABLE_USER">
+         <include refid="com.wip.dao.UserDao.BASE_TABLE"/>
+    </sql>
+
+    <!--关联查询的用户表需要的字段-->
+    <sql id="REL_USER_COLUMN">
+         u.username
+    </sql>
+
+
+
+    <!--新增单个附件-->
+    <insert id="addAttAch" parameterType="com.wip.model.AttAchDomain">
+        INSERT INTO
+          <include refid="BASE_TABLE"/>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            fname,
+            ftype,
+            fkey,
+            authorId,
+            created
+        </trim>
+        <trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+            #{fname, jdbcType=VARCHAR},
+            #{ftype, jdbcType=VARCHAR},
+            #{fkey, jdbcType=VARCHAR},
+            #{authorId, jdbcType=INTEGER},
+            UNIX_TIMESTAMP(NOW())
+        </trim>
+    </insert>
+
+    <!--获取所有的附件信息-->
+    <select id="getAtts" resultType="com.wip.dto.AttAchDto">
+        SELECT
+            <trim suffix="" suffixOverrides=",">
+                <include refid="BASE_COLUMN"/>
+                <include refid="REL_USER_COLUMN"/>
+            </trim>
+        FROM
+            <include refid="BASE_TABLE"/> AS aa
+        LEFT JOIN
+            <include refid="TABLE_USER"/> AS u
+        ON
+            aa.authorId = u.uid
+        ORDER BY
+            aa.created DESC
+    </select>
 
 
 
