@@ -28,7 +28,7 @@
                                     </span>
                                     <span class="post-meta-item-text">分类于</span>
                                     <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                                        <a href="/categories/django/" itemprop="url" rel="index">
+                                        <a th:href="@{'/categories/'} + ${article.categories}" itemprop="url" rel="index">
                                             <span itemprop="name" th:text="${article.categories}"></span>
                                         </a>
                                     </span>
