@@ -25,12 +25,12 @@ public class QiNiuCloudService {
     /**
      * 密钥凭证
      */
-    private static final String ACCESS_KEY = "AY2Oc23u3Qa3XEXqplmLD0SRZZoahv6gH07SYAY4";
-    private static final String SECRET_KEY = "6MmnZbJJJWScs86auEYSZMz3COQdMLISBPe6pgHz";
+    private static final String ACCESS_KEY = "";
+    private static final String SECRET_KEY = "";
     /**
      * 仓库
      */
-    private static final String BUCKET = "java";
+    private static final String BUCKET = "";
 
     /**
      * 七牛外网访问地址
