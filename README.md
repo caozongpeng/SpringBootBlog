@@ -58,4 +58,4 @@ Kyrie Blog是由SpringBoot1.5 + MyBatis + Thymeleaf等技术实现的个人网�
 后台访问地址：http://localhost:8888/admin 用户名：admin 密码：123456
 
 ### 更新日志
-2018-08-04发布
+2018-08-04发布第一个版本
