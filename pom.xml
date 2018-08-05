@@ -169,7 +169,11 @@
             <!--<optional>true</optional>-->
         <!--</dependency>-->
 
-
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -177,8 +181,24 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <!--打jar包启动类-->
+                <configuration>
+                    <mainClass>com.wip.MyBlogApplication</mainClass>
+                </configuration>
+            </plugin>
+            <!--打jar包需要-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
             </plugin>
         </plugins>
+        <!--jar包名-->
+        <finalName>blog</finalName>
     </build>
 
 
