@@ -29,7 +29,7 @@
                                     </span>
                                     <span class="post-meta-item-text">分类于</span>
                                     <span>
-                                        <a href="" rel="index">
+                                        <a th:href="@{'/categories/'} + ${post.categories}" rel="index">
                                             <span th:text="${post.categories}"></span>
                                         </a>
                                     </span>
