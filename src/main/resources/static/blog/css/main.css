@@ -1187,6 +1187,9 @@ pre .javascript .function {
   padding: 3px;
   border: 1px solid #ddd;
 }
+.posts-expand .post-body p {
+  text-indent: 2em;
+}
 .posts-expand .fancybox img {
   margin: 0 auto;
 }
