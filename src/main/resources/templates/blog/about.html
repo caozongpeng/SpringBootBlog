@@ -56,10 +56,27 @@
                         <ul>
                             <li>QQ：864655735</li>
                             <li>邮箱：KyrieCao@163.com</li>
-                            <li>GitHub：<a href="https://github.com/caozongpeng" target="_blank">https://github.com/caozongpeng</a></li>
-                            <li>简书：<a href="https://www.jianshu.com/u/0ee9ea8fd5d2" target="_blank">https://www.jianshu.com/u/0ee9ea8fd5d2</a></li>
-                            <li>知乎：<a href="https://www.zhihu.com/people/lao-cao-92-57/activities" target="_blank">https://www.zhihu.com/people/lao-cao-92-57/activities</a></li>
-                            <li>CSDN：<a href="https://blog.csdn.net/qq_22067469" target="_blank">https://blog.csdn.net/qq_22067469</a></li>
+                            <th:block th:each="index : ${commons.social()}">
+                                <th:block th:if="${index.value} != null and ${index.value} != ''">
+                                    <th:block th:switch="${index.key}">
+                                        <th:block th:case="'github'">
+                                            <li>GitHub：<a th:href="@{${index.value}}" target="_blank" th:text="${index.value}"></a></li>
+                                        </th:block>
+                                        <th:block th:case="'jianshu'">
+                                            <li>简书：<a th:href="@{${index.value}}" target="_blank" th:text="${index.value}"></a></li>
+                                        </th:block>
+                                        <th:block th:case="'zhihu'">
+                                            <li>知乎：<a th:href="@{${index.value}}" target="_blank" th:text="${index.value}"></a></li>
+                                        </th:block>
+                                        <th:block th:case="'csdn'">
+                                            <li>CSDN：<a th:href="@{${index.value}}" target="_blank" th:text="${index.value}"></a></li>
+                                        </th:block>
+                                        <th:block th:case="'resume'">
+                                            <li>简历：<a th:href="@{${index.value}}" target="_blank" th:text="${index.value}"></a></li>
+                                        </th:block>
+                                    </th:block>
+                                </th:block>
+                            </th:block>
                             <li>博客园：<a href="http://www.cnblogs.com/KyrieCao/" target="_blank">http://www.cnblogs.com/KyrieCao/</a></li>
                         </ul>
                     </div>
