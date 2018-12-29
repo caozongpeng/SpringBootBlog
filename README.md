@@ -27,28 +27,28 @@ Kyrie Blog是由SpringBoot1.5 + MyBatis + Thymeleaf等技术实现的个人网�
 
 ### 预览效果
 #### 前端效果
-![index](http://pcschpyz4.bkt.clouddn.com/index.png)
+![index](http://caozongpeng.oss-cn-shenzhen.aliyuncs.com/image/blog/index.png)
 
-![archives](http://pcschpyz4.bkt.clouddn.com/archives.png)
+![archives](http://caozongpeng.oss-cn-shenzhen.aliyuncs.com/image/blog/archives.png)
 
-![detail](http://pcschpyz4.bkt.clouddn.com/detail.png)
+![detail](http://caozongpeng.oss-cn-shenzhen.aliyuncs.com/image/blog/detail.png)
 
-![category](http://pcschpyz4.bkt.clouddn.com/category.png)
+![category](http://caozongpeng.oss-cn-shenzhen.aliyuncs.com/image/blog/category.png)
 
-![about](http://pcschpyz4.bkt.clouddn.com/about.png)
+![about](http://caozongpeng.oss-cn-shenzhen.aliyuncs.com/image/blog/about.png)
 
 #### 后端效果
-![adminlogin](http://pcschpyz4.bkt.clouddn.com/adminlogin.png)
+![adminlogin](http://caozongpeng.oss-cn-shenzhen.aliyuncs.com/image/blog/adminlogin.png)
 
-![adminindex](http://pcschpyz4.bkt.clouddn.com/adminindex.png)
+![adminindex](http://caozongpeng.oss-cn-shenzhen.aliyuncs.com/image/blog/adminindex.png)
 
-![articlepublish](http://pcschpyz4.bkt.clouddn.com/articlepublish.png)
+![articlepublish](http://caozongpeng.oss-cn-shenzhen.aliyuncs.com/image/blog/articlepublish.png)
 
-![articlemanager](http://pcschpyz4.bkt.clouddn.com/articlemanager.png)
+![articlemanager](http://caozongpeng.oss-cn-shenzhen.aliyuncs.com/image/blog/articlemanager.png)
 
-![filemanager](http://pcschpyz4.bkt.clouddn.com/filemanager.png)
+![filemanager](http://caozongpeng.oss-cn-shenzhen.aliyuncs.com/image/blog/filemanager.png)
 
-![setting](http://pcschpyz4.bkt.clouddn.com/setting.png)
+![setting](http://caozongpeng.oss-cn-shenzhen.aliyuncs.com/image/blog/setting.png)
 
 ### 安装
 下载源码，执行sql文件，然后修改application-dev.yml文件中连接数据库的用户名、密码。运行项目即可。
