@@ -58,5 +58,5 @@ Kyrie Blog是由SpringBoot1.5 + MyBatis + Thymeleaf等技术实现的个人网�
 后台访问地址：http://localhost:8888/admin 用户名：admin 密码：123456
 
 ###  如果此博客能帮助到你，请作者喝杯咖啡吧或者建设演示服务器
-![wacht](https://caozongpeng.oss-cn-shenzhen.aliyuncs.com/image/github/wacht1.jpg)
-![alipay](https://caozongpeng.oss-cn-shenzhen.aliyuncs.com/image/github/alipay1.jpg)
+![wacht](http://caozongpeng.oss-cn-shenzhen.aliyuncs.com/image/github/wacht1.jpg)
+![alipay](http://caozongpeng.oss-cn-shenzhen.aliyuncs.com/image/github/alipay1.jpg)
