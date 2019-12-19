@@ -27,28 +27,29 @@ Kyrie Blog是由SpringBoot1.5 + MyBatis + Thymeleaf等技术实现的个人网�
 
 ### 预览效果
 #### 前端效果
-![index](http://caozongpeng.oss-cn-shenzhen.aliyuncs.com/image/blog/index.png)
+![index](https://github.com/caozongpeng/github-static/blob/master/springBootBlog/index.png)
 
-![archives](http://caozongpeng.oss-cn-shenzhen.aliyuncs.com/image/blog/archives.png)
+![archives](https://github.com/caozongpeng/github-static/blob/master/springBootBlog/archives.png)
 
-![detail](http://caozongpeng.oss-cn-shenzhen.aliyuncs.com/image/blog/detail.png)
+![detail](https://github.com/caozongpeng/github-static/blob/master/springBootBlog/detail.png)
 
-![category](http://caozongpeng.oss-cn-shenzhen.aliyuncs.com/image/blog/category.png)
+![category](https://github.com/caozongpeng/github-static/blob/master/springBootBlog/category.png)
 
-![about](http://caozongpeng.oss-cn-shenzhen.aliyuncs.com/image/blog/about.png)
+![about](https://github.com/caozongpeng/github-static/blob/master/springBootBlog/about.png)
 
 #### 后端效果
-![adminlogin](http://caozongpeng.oss-cn-shenzhen.aliyuncs.com/image/blog/adminlogin.png)
 
-![adminindex](http://caozongpeng.oss-cn-shenzhen.aliyuncs.com/image/blog/adminindex.png)
+![adminlogin](https://github.com/caozongpeng/github-static/blob/master/springBootBlog/adminlogin.png)
 
-![articlepublish](http://caozongpeng.oss-cn-shenzhen.aliyuncs.com/image/blog/articlepublish.png)
+![adminindex](https://github.com/caozongpeng/github-static/blob/master/springBootBlog/adminindex.png)
 
-![articlemanager](http://caozongpeng.oss-cn-shenzhen.aliyuncs.com/image/blog/articlemanager.png)
+![articlepublish](https://github.com/caozongpeng/github-static/blob/master/springBootBlog/articlepublish.png)
 
-![filemanager](http://caozongpeng.oss-cn-shenzhen.aliyuncs.com/image/blog/filemanager.png)
+![articlemanager](https://github.com/caozongpeng/github-static/blob/master/springBootBlog/articlemanager.png)
 
-![setting](http://caozongpeng.oss-cn-shenzhen.aliyuncs.com/image/blog/setting.png)
+![filemanager](https://github.com/caozongpeng/github-static/blob/master/springBootBlog/filemanager.png)
+
+![setting](https://github.com/caozongpeng/github-static/blob/master/springBootBlog/setting.png)
 
 ### 安装
 下载源码，执行sql文件，然后修改application-dev.yml文件中连接数据库的用户名、密码。运行项目即可。
@@ -58,5 +59,5 @@ Kyrie Blog是由SpringBoot1.5 + MyBatis + Thymeleaf等技术实现的个人网�
 后台访问地址：http://localhost:8888/admin 用户名：admin 密码：123456
 
 ###  如果此博客能帮助到你，请作者喝杯咖啡吧或者建设演示服务器
-![wacht](http://caozongpeng.oss-cn-shenzhen.aliyuncs.com/image/github/wacht1.jpg)
-![alipay](http://caozongpeng.oss-cn-shenzhen.aliyuncs.com/image/github/alipay1.jpg)
+![wacht](https://github.com/caozongpeng/github-static/blob/master/money/wacht.jpg)
+![alipay](https://github.com/caozongpeng/github-static/blob/master/money/alipay.jpg)
