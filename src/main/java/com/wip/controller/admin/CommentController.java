@@ -73,5 +73,27 @@ public class CommentController extends BaseController {
         }
         return APIResponse.success();
     }
-
+    @ApiOperation("删除评论")
+    @PostMapping(value = "/delete")
+    @ResponseBody
+    public APIResponse deleteStatus(
+            HttpServletRequest request,
+            @ApiParam(name = "coid", value = "评论主键", required = true)
+            @RequestParam(name = "coid", required = true)
+                    Integer coid
+    ) {
+        try {
+            CommentDomain comment = commentService.getCommentById(coid);
+            if (null != comment) {
+                commentService.deleteComment(coid);
+            } else {
+                return APIResponse.fail("通过失败");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.error(e.getMessage());
+            return APIResponse.fail(e.getMessage());
+        }
+        return APIResponse.success();
+    }
 }
