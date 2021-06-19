@@ -67,18 +67,7 @@ public class CommentServiceImpl implements CommentService {
         if (StringUtils.isBlank(comments.getAuthor())) {
             comments.setAuthor("热心网友");
         }
-        if (StringUtils.isNotBlank(comments.getEmail()) && !TaleUtils.isEmail(comments.getEmail())) {
-            msg =  "请输入正确的邮箱格式";
-        }
-        if (StringUtils.isBlank(comments.getContent())) {
-            msg = "评论内容不能为空";
-        }
-        if (comments.getContent().length() < 5 || comments.getContent().length() > 2000) {
-            msg = "评论字数在5-2000个字符";
-        }
-        if (null == comments.getCid()) {
-            msg = "评论文章不能为空";
-        }
+        
         if (msg != null)
             throw BusinessException.withErrorCode(msg);
 
