@@ -1,5 +1,5 @@
 # Kyrie Blog
-## 个人博客系统
+## 个人博客系统 xxxx
 Kyrie Blog是由SpringBoot1.5 + MyBatis + Thymeleaf等技术实现的个人网站，如果觉得项目不错，请帮忙`Star`支持一下。
 ### 适用对象
 * Spring Boot 初学者。该博客系统综合运用了作者发表的 《Spring Boot 入门》 系列的文章提及的知识内容，初学者可以阅读文章以及结合该项目学习。
