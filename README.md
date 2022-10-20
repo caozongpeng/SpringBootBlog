@@ -1,4 +1,4 @@
-# Kyrie Blog
+# Kyrie Blogdsad
 ## 个人博客系统 xxxx
 Kyrie Blog是由SpringBoot1.5 + MyBatis + Thymeleaf等技术实现的个人网站，如果觉得项目不错，请帮忙`Star`支持一下。
 ### 适用对象
