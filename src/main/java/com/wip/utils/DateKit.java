@@ -13,7 +13,7 @@ import java.util.Date;
  */
 public class DateKit {
 
-
+    private DateKit(){}
 
     public static String formatDateByUnixTime(long unixTime, String dateFormat) {
         return dateFormat(new Date(unixTime * 1000L), dateFormat);

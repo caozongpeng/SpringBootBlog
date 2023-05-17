@@ -42,15 +42,10 @@ public abstract class BaseController {
      * @return String
      */
     public String join(String[] arr) {
-        StringBuffer buffer = new StringBuffer();
-        String[] temp = arr;
-        int length = arr.length;
-
-        for (int i = 0; i < length; i++) {
-            String item = temp[i];
+        StringBuilder buffer = new StringBuilder();
+        for (String item : arr) {
             buffer.append(",").append(item);
         }
-
         return buffer.length() > 0 ? buffer.substring(1) : buffer.toString();
     }
 

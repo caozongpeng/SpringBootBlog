@@ -43,9 +43,7 @@ public class SettingController extends BaseController {
     public String index(HttpServletRequest request) {
         List<OptionsDomain> optionsList = optionService.getOptions();
         Map<String, String> options = new HashMap<>();
-        optionsList.forEach((option) ->{
-            options.put(option.getName(),option.getValue());
-        });
+        optionsList.forEach(option -> options.put(option.getName(),option.getValue()));
         request.setAttribute("options", options);
         return "admin/setting";
     }
@@ -54,25 +52,19 @@ public class SettingController extends BaseController {
     @PostMapping(value = "")
     @ResponseBody
     public APIResponse saveSetting(HttpServletRequest request) {
-
         try {
             Map<String, String[]> parameterMap = request.getParameterMap();
             Map<String, String> querys = new HashMap<>();
-            parameterMap.forEach((key, value) -> {
-            //System.out.println(key + "------" + join(value));
-                querys.put(key, join(value));
-            });
-
+            parameterMap.forEach((key, value) -> querys.put(key, join(value)));
             optionService.saveOptions(querys);
             WebConst.initConfig = querys;
-
             // 写入日志
             logService.addLog(LogActions.SYS_SETTING.getAction(),GsonUtils.toJsonString(querys),request.getRemoteAddr(),this.getUid(request));
             return APIResponse.success();
-
         } catch (Exception e) {
             String msg = "保存设置失败";
-            return APIResponse.fail(e.getMessage());
+            LOGGER.error(e.getMessage());
+            return APIResponse.fail(msg);
         }
     }
 

@@ -1,6 +1,5 @@
 package com.wip;
 
-import com.wip.utils.Commons;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

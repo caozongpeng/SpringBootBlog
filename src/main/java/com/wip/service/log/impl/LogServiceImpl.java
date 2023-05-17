@@ -40,8 +40,7 @@ public class LogServiceImpl implements LogService {
     public PageInfo<LogDomain> getLogs(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
         List<LogDomain> logs = logDao.getLogs();
-        PageInfo<LogDomain> pageInfo = new PageInfo<>(logs);
-        return pageInfo;
+        return new PageInfo<>(logs);
 
     }
 }

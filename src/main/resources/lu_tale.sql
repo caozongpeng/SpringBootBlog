@@ -128,6 +128,19 @@ CREATE TABLE `t_options`  (
   PRIMARY KEY (`name`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
+INSERT INTO lu_tale.t_options (name, value, description) VALUES('baidu_site_verification', '无', NULL);
+INSERT INTO lu_tale.t_options (name, value, description) VALUES('google_site_verification', '无', NULL);
+INSERT INTO lu_tale.t_options (name, value, description) VALUES('site_description', 'KyrieCao的博客', NULL);
+INSERT INTO lu_tale.t_options (name, value, description) VALUES('site_record', '无', NULL);
+INSERT INTO lu_tale.t_options (name, value, description) VALUES('site_title', 'KyrieCao', 'KyrieCao');
+INSERT INTO lu_tale.t_options (name, value, description) VALUES('social_csdn', 'https://blog.csdn.net/qq_22067469', NULL);
+INSERT INTO lu_tale.t_options (name, value, description) VALUES('social_github', '', NULL);
+INSERT INTO lu_tale.t_options (name, value, description) VALUES('social_jianshu', 'https://www.jianshu.com/u/0ee9ea8fd5d2', NULL);
+INSERT INTO lu_tale.t_options (name, value, description) VALUES('social_resume', '', NULL);
+INSERT INTO lu_tale.t_options (name, value, description) VALUES('social_twitter', '', NULL);
+INSERT INTO lu_tale.t_options (name, value, description) VALUES('social_weibo', '', NULL);
+INSERT INTO lu_tale.t_options (name, value, description) VALUES('social_zhihu', '', NULL);
+
 -- ----------------------------
 -- Table structure for t_relationships
 -- ----------------------------

@@ -15,12 +15,9 @@ import com.wip.utils.APIResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
@@ -28,8 +25,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin/article")
 public class ArticleController extends BaseController {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(ArticleController.class);
 
     @Autowired
     private MetaService metaService;
@@ -130,7 +125,7 @@ public class ArticleController extends BaseController {
         contentDomain.setStatus(status);
         contentDomain.setTags(tags);
         contentDomain.setCategories(categories);
-        contentDomain.setAllowComment(allowComment ? 1: 0);
+        contentDomain.setAllowComment(Boolean.TRUE.equals(allowComment) ? 1: 0);
         contentService.updateArticleById(contentDomain);
 
         return APIResponse.success();
@@ -181,7 +176,7 @@ public class ArticleController extends BaseController {
         // 只允许博客文章有分类，防止作品被收入分类
         contentDomain.setTags(type.equals(Types.ARTICLE.getType()) ? tags : null);
         contentDomain.setCategories(type.equals(Types.ARTICLE.getType()) ? categories : null);
-        contentDomain.setAllowComment(allowComment ? 1 : 0);
+        contentDomain.setAllowComment(Boolean.TRUE.equals(allowComment) ? 1 : 0);
 
         // 添加文章
         contentService.addArticle(contentDomain);

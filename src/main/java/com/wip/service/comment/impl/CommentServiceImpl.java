@@ -118,8 +118,7 @@ public class CommentServiceImpl implements CommentService {
             throw BusinessException.withErrorCode(ErrorConstant.Common.PARAM_IS_EMPTY);
         PageHelper.startPage(pageNum,pageSize);
         List<CommentDomain> comments = commentDao.getCommentsByCond(commentCond);
-        PageInfo<CommentDomain> pageInfo = new PageInfo<>(comments);
-        return pageInfo;
+        return new PageInfo<>(comments);
     }
 
     @Override

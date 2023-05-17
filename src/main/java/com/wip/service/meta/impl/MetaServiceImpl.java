@@ -24,6 +24,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -187,36 +188,38 @@ public class MetaServiceImpl implements MetaService {
 
         // 通过ID找到该项目
         MetaDomain meta = metaDao.getMetaById(mid);
-        if (null != meta) {
-            String type = meta.getType();
-            String name = meta.getName();
-            // 删除meta
-            metaDao.deleteMetaById(mid);
-            // 需要把相关的数据删除
-            List<RelationShipDomain> relationShips = relationShipDao.getRelationShipByMid(mid);
-            // 判断是否查找到项目编号
-            if (null != relationShips && relationShips.size() > 0) {
-                for (RelationShipDomain relationShip : relationShips) {
-                    // 通过关联表的文章ID找到该文章
-                    ContentDomain article = contentService.getArticleById(relationShip.getCid());
-                    // 判断是否找到文章
-                    if (null != article) {
-                        ContentDomain temp = new ContentDomain();
-                        temp.setCid(relationShip.getCid());
-                        if (type.equals(Types.CATEGORY.getType())) {
-                            temp.setCategories(reMeta(name,article.getCategories()));
-                        }
-                        if (type.equals(Types.TAG.getType())) {
-                            temp.setTags(reMeta(name,article.getTags()));
-                        }
-                        // 将删除的标签和分类从文章表中去除
-                        contentService.updateArticleById(temp);
-                    }
+        if (null == meta) {
+            return;
+        }
+        String type = meta.getType();
+        String name = meta.getName();
+        // 删除meta
+        metaDao.deleteMetaById(mid);
+        // 需要把相关的数据删除
+        List<RelationShipDomain> relationShips = relationShipDao.getRelationShipByMid(mid);
+        // 判断是否查找到项目编号
+        if (CollectionUtils.isEmpty(relationShips)) {
+            return;
+        }
+        for (RelationShipDomain relationShip : relationShips) {
+            // 通过关联表的文章ID找到该文章
+            ContentDomain article = contentService.getArticleById(relationShip.getCid());
+            // 判断是否找到文章
+            if (null != article) {
+                ContentDomain temp = new ContentDomain();
+                temp.setCid(relationShip.getCid());
+                if (type.equals(Types.CATEGORY.getType())) {
+                    temp.setCategories(reMeta(name,article.getCategories()));
                 }
-                // 删除关联meta
-                relationShipDao.deleteRelationShipByMid(mid);
+                if (type.equals(Types.TAG.getType())) {
+                    temp.setTags(reMeta(name,article.getTags()));
+                }
+                // 将删除的标签和分类从文章表中去除
+                contentService.updateArticleById(temp);
             }
         }
+        // 删除关联meta
+        relationShipDao.deleteRelationShipByMid(mid);
     }
     private String reMeta(String name, String metas) {
         String[] ms = StringUtils.split(metas,",");

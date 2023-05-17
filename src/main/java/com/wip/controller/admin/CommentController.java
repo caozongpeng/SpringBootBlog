@@ -4,7 +4,6 @@ import com.github.pagehelper.PageInfo;
 import com.wip.controller.BaseController;
 import com.wip.dto.cond.CommentCond;
 import com.wip.model.CommentDomain;
-import com.wip.model.UserDomain;
 import com.wip.service.comment.CommentService;
 import com.wip.utils.APIResponse;
 import io.swagger.annotations.Api;
@@ -15,8 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 
 @Api("评论相关接口")
@@ -41,7 +38,6 @@ public class CommentController extends BaseController {
             HttpServletRequest request
 
     ) {
-        UserDomain user = this.user(request);
         PageInfo<CommentDomain> comments = commentService.getCommentsByCond(new CommentCond(), page, limit);
         request.setAttribute("comments", comments);
         return "admin/comment_list";

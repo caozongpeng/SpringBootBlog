@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class IPKit {
 
+    private IPKit() {}
+
     /**
      * 获取请求IP地址
      * @param request

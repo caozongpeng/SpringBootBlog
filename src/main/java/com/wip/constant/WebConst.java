@@ -11,6 +11,8 @@ import java.util.Map;
 @Component
 public class WebConst {
 
+    private WebConst() {}
+
 
     /**
      * 一些网站配置

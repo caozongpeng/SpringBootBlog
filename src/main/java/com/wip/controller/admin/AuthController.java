@@ -61,29 +61,29 @@ public class AuthController extends BaseController {
             String password,
             @ApiParam(name = "remember_me", value = "记住我", required = false)
             @RequestParam(name = "remember_me", required = false)
-            String remember_me
+            String rememberMe
     ) {
-        Integer error_count = cache.get("login_error_count");
+        Integer errorCount = cache.get("login_error_count");
         try {
             // 调用Service登录方法
             UserDomain userInfo = userService.login(username, password);
             // 设置用户信息session
             request.getSession().setAttribute(WebConst.LOGIN_SESSION_KEY, userInfo);
             // 判断是否勾选记住我
-            if (StringUtils.isNotBlank(remember_me)) {
+            if (StringUtils.isNotBlank(rememberMe)) {
                 TaleUtils.setCookie(response, userInfo.getUid());
             }
             // 写入日志
             logService.addLog(LogActions.LOGIN.getAction(), userInfo.getUsername()+"用户", request.getRemoteAddr(), userInfo.getUid());
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
-            error_count = null == error_count ? 1 : error_count + 1;
-            if (error_count > 3) {
+            errorCount = null == errorCount ? 1 : errorCount + 1;
+            if (errorCount > 3) {
                 return APIResponse.fail("您输入密码已经错误超过3次，请10分钟后尝试");
             }
-            System.out.println(error_count);
+            LOGGER.error(String.valueOf(errorCount));
             // 设置缓存为10分钟
-            cache.set("login_error_count", error_count, 10 * 60);
+            cache.set("login_error_count", errorCount, 10 * 60);
             String msg = "登录失败";
             if (e instanceof BusinessException) {
                 msg = e.getMessage();
@@ -114,7 +114,4 @@ public class AuthController extends BaseController {
             LOGGER.error("注销失败",e);
         }
     }
-
-
-
 }

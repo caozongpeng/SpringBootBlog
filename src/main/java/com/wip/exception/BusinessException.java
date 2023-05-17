@@ -48,7 +48,7 @@ public class BusinessException extends RuntimeException {
     }
 
     public String[] getErrorMessageArguments() {
-        return this.errorMessageArguments = errorMessageArguments;
+        return errorMessageArguments;
     }
 
     public BusinessException withErrorMessageArguments(String... errorMessageArguments) {

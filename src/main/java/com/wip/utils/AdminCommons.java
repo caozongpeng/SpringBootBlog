@@ -15,6 +15,8 @@ import org.springframework.stereotype.Component;
 @Component
 public final class AdminCommons {
 
+    private AdminCommons(){}
+
 
     /**
      * 判断category和cat的交集

@@ -29,15 +29,15 @@ public interface OptionService {
 
     /**
      * 更新网站配置
-     * @param s
-     * @param s1
+     * @param name
+     * @param value
      */
     void updateOptionByName(String name, String value);
 
     /**
      * 通过名称获取网站配置
-     * @param site_record
+     * @param siteRecord
      * @return
      */
-    OptionsDomain getOptionByName(String site_record);
+    OptionsDomain getOptionByName(String siteRecord);
 }

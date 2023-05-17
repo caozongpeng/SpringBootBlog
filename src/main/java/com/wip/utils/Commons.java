@@ -17,6 +17,8 @@ import java.util.Random;
 @Component
 public class Commons {
 
+    private Commons() {}
+
 
     /**
      * 获取随机数数
@@ -79,7 +81,7 @@ public class Commons {
      * @return
      */
     public static String blogPermalink(Integer cid) {
-        return site_url("/blog/article/" + cid.toString());
+        return site_url("/detail/" + cid.toString());
     }
 
     /**

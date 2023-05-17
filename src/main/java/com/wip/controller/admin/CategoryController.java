@@ -78,7 +78,6 @@ public class CategoryController extends BaseController {
         try {
             metaService.deleteMetaById(mid);
         } catch (Exception e) {
-            e.printStackTrace();
             LOGGER.error(e.getMessage());
             return APIResponse.fail(e.getMessage());
         }

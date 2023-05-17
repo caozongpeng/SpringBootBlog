@@ -42,8 +42,7 @@ public class AttAchServiceImpl implements AttAchService {
     public PageInfo<AttAchDto> getAtts(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         List<AttAchDto> atts = attAchDao.getAtts();
-        PageInfo<AttAchDto> pageInfo = new PageInfo<>(atts);
-        return pageInfo;
+        return new PageInfo<>(atts);
     }
 
     @Override

@@ -90,10 +90,10 @@ public class BaseInterceptor implements HandlerInterceptor {
 
         // 设置GET请求的token
         if (request.getMethod().equals("GET")) {
-            String csrf_token = UUID.UU64();
+            String csrfToken = UUID.UU64();
             // 默认存储30分钟
-            cache.hset(Types.CSRF_TOKEN.getType(), csrf_token, uri,30 * 60);
-            request.setAttribute("_csrf_token", csrf_token);
+            cache.hset(Types.CSRF_TOKEN.getType(), csrfToken, uri,30 * 60);
+            request.setAttribute("_csrf_token", csrfToken);
         }
         // 返回true才会执行postHandle
         return true;
@@ -118,22 +118,20 @@ public class BaseInterceptor implements HandlerInterceptor {
         request.setAttribute("commons", commons);
         request.setAttribute("option", ov);
         request.setAttribute("adminCommons", adminCommons);
-        initSiteConfig(request);
+        initSiteConfig();
     }
 
-    private void initSiteConfig(HttpServletRequest request) {
+    private void initSiteConfig() {
         if (WebConst.initConfig.isEmpty()) {
             List<OptionsDomain> options = optionService.getOptions();
             Map<String, String> querys = new HashMap<>();
-            options.forEach(option -> {
-                querys.put(option.getName(),option.getValue());
-            });
+            options.forEach(option -> querys.put(option.getName(),option.getValue()));
             WebConst.initConfig = querys;
         }
     }
 
     @Override
-    public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {
+    public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) {
 
     }
 }

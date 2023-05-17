@@ -76,7 +76,7 @@ public class LinksController extends BaseController {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
             throw BusinessException.withErrorCode(ErrorConstant.Meta.ADD_META_FAIL);
         }
 
@@ -94,7 +94,7 @@ public class LinksController extends BaseController {
         try {
             metaService.deleteMetaById(mid);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
             throw BusinessException.withErrorCode(ErrorConstant.Meta.DELETE_META_FAIL);
         }
 

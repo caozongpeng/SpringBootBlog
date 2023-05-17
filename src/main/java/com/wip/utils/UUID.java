@@ -8,6 +8,8 @@ import java.util.Random;
  */
 public abstract class UUID {
 
+    private UUID() {}
+
     static Random r = new Random();
 
     /**
@@ -81,7 +83,6 @@ public abstract class UUID {
     public static String UU32(java.util.UUID uuid) {
         StringBuilder sb = new StringBuilder();
         long m = uuid.getMostSignificantBits();
-        long l = uuid.getLeastSignificantBits();
         for (int i = 0; i < 13; i++) {
             sb.append(_UU32[(int) (m >> ((13 - i - 1) * 5)) & 31]);
         }

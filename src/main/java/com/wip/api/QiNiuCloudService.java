@@ -13,6 +13,8 @@ import com.qiniu.storage.Configuration;
 import com.qiniu.storage.UploadManager;
 import com.qiniu.storage.model.DefaultPutRet;
 import com.qiniu.util.Auth;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -21,6 +23,10 @@ import java.io.IOException;
  * 七牛文件上传API
  */
 public class QiNiuCloudService {
+
+    private QiNiuCloudService(){}
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(QiNiuCloudService.class);
 
     /**
      * 密钥凭证
@@ -44,7 +50,6 @@ public class QiNiuCloudService {
      * @return
      */
     public static String upload(MultipartFile file, String fileName) {
-
         // 构造一个带指定Zone对象的配置类
         // 华东 Zone.zone0()
         // 华北 Zone.zone1()
@@ -53,30 +58,27 @@ public class QiNiuCloudService {
         Configuration cfg = new Configuration(Zone.zone2());
         // 其它参数参考类注释
         UploadManager uploadManager = new UploadManager(cfg);
-
         // 默认不指定key的情况下，以文件内容的hash值作为文件名
-        String key = null;
         Auth auth = Auth.create(ACCESS_KEY, SECRET_KEY);
         String upToken = auth.uploadToken(BUCKET);
         try {
             Response response = null;
             response = uploadManager.put(file.getInputStream(), fileName, upToken,null,null);
-
             // 解析上传成功的结果
             DefaultPutRet putRet = new Gson().fromJson(response.bodyString(),DefaultPutRet.class);
-            System.out.println(putRet.key);
-            System.out.println(putRet.hash);
+            LOGGER.info(putRet.key);
+            LOGGER.info(putRet.hash);
             return  putRet.key;
         } catch (QiniuException ex) {
             Response r = ex.response;
-            System.out.println(r.toString());
+            LOGGER.error(r.toString());
             try {
-                System.out.println(r.bodyString());
+                LOGGER.error(r.bodyString());
             } catch (QiniuException ex2) {
-
+                LOGGER.error(ex2.error());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
         }
         return null;
     }

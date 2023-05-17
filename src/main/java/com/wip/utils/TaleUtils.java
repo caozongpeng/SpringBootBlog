@@ -28,6 +28,8 @@ import java.util.regex.Pattern;
 
 public class TaleUtils {
 
+    private TaleUtils() {}
+
     /**
      * 匹配邮箱正则
      */
@@ -118,8 +120,6 @@ public class TaleUtils {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        int lastIndex = path.lastIndexOf("/") + 1;
-        path = path.substring(0, lastIndex);
         File file = new File("");
         return file.getAbsolutePath() + "/";
     }

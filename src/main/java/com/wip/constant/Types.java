@@ -1,7 +1,5 @@
 package com.wip.constant;
 
-import com.wip.model.ContentDomain;
-
 /**
  * Created by IntelliJ IDEA.
  * User: Kyrie

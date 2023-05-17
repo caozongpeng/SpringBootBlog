@@ -11,6 +11,8 @@ import com.google.gson.Gson;
  * json转换工具
  */
 public class GsonUtils {
+
+    private GsonUtils (){}
     private static final Gson gson = new Gson();
 
     public static String toJsonString(Object object) {

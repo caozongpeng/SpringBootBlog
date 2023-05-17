@@ -194,15 +194,15 @@ public class HomeController extends BaseController {
                                @RequestParam(name = "email", required = false) String email,
                                @RequestParam(name = "url", required = false) String url,
                                @RequestParam(name = "content", required = true) String content,
-                               @RequestParam(name = "csrf_token", required = true) String csrf_token
+                               @RequestParam(name = "csrf_token", required = true) String csrfToken
                                ) {
 
         String ref = request.getHeader("Referer");
-        if (StringUtils.isBlank(ref) || StringUtils.isBlank(csrf_token)){
+        if (StringUtils.isBlank(ref) || StringUtils.isBlank(csrfToken)){
             return APIResponse.fail("访问失败");
         }
 
-        String token = cache.hget(Types.CSRF_TOKEN.getType(), csrf_token);
+        String token = cache.hget(Types.CSRF_TOKEN.getType(), csrfToken);
         if (StringUtils.isBlank(token)) {
             return APIResponse.fail("访问失败");
         }
