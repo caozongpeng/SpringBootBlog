@@ -4,7 +4,7 @@
 <footer id="footer" class="footer" th:fragment="footer(record)">
     <div class="footer-inner">
         <div class="copyright">
-            © 2017 - <span>2018</span> <span class="with-love">
+            © 2023 - <span>2025</span> <span class="with-love">
                 <i class="fa fa-heart"></i></span> <span class="author">Kyrie</span>
         </div>
 
@@ -17,7 +17,7 @@
         </div>
         <div>
             <th:block th:if="${record != null and record != ''}">
-                <a th:text="${record}" th:href="@{http://www.miitbeian.gov.cn/}"></a>
+                <a th:text="${record}" target="_blank" th:href="@{https://tsm.miit.gov.cn/}"></a>
             </th:block>
         </div>
     </div>

@@ -8,9 +8,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-    <link href="https://cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css"/>
-    <link href="https://fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Rosario:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css"/>
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/blog/fancybox/2.1.5/jquery.fancybox.min.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/blog/css/fonts.css}"/>
+    <link th:href="@{/blog/font-awesome/4.6.2/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
     <link th:href="@{/blog/css/main.css}" rel="stylesheet" type="text/css"/>
     <meta name="keywords" content="KyrieCao"/>
     <link rel="shortcut icon" type="image/x-icon" th:href="@{/blog/image/favicon.ico}"/>
@@ -80,8 +80,8 @@
             window.Promise = null;
         }
     </script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+    <script type="text/javascript" th:src="@{/blog/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/blog/fastclick/1.0.6/fastclick.min.js}"></script>
     <script type="text/javascript" th:src="@{/blog/jquery.lazyload/1.9.3/jquery.lazyload.min.js}"></script>
     <script type="text/javascript" th:src="@{/blog/velocity/1.2.3/velocity.min.js}"></script>
     <script type="text/javascript" th:src="@{/blog/velocity/1.2.3/velocity.ui.min.js}"></script>
