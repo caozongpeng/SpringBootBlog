@@ -134,12 +134,13 @@ INSERT INTO lu_tale.t_options (name, value, description) VALUES('site_descriptio
 INSERT INTO lu_tale.t_options (name, value, description) VALUES('site_record', '无', NULL);
 INSERT INTO lu_tale.t_options (name, value, description) VALUES('site_title', 'KyrieCao', 'KyrieCao');
 INSERT INTO lu_tale.t_options (name, value, description) VALUES('social_csdn', 'https://blog.csdn.net/qq_22067469', NULL);
-INSERT INTO lu_tale.t_options (name, value, description) VALUES('social_github', '', NULL);
-INSERT INTO lu_tale.t_options (name, value, description) VALUES('social_jianshu', 'https://www.jianshu.com/u/0ee9ea8fd5d2', NULL);
+INSERT INTO lu_tale.t_options (name, value, description) VALUES('social_github', 'https://github.com/caozongpeng', NULL);
+INSERT INTO lu_tale.t_options (name, value, description) VALUES('social_jianshu', 'https://www.jianshu.com/', NULL);
 INSERT INTO lu_tale.t_options (name, value, description) VALUES('social_resume', '', NULL);
 INSERT INTO lu_tale.t_options (name, value, description) VALUES('social_twitter', '', NULL);
-INSERT INTO lu_tale.t_options (name, value, description) VALUES('social_weibo', '', NULL);
-INSERT INTO lu_tale.t_options (name, value, description) VALUES('social_zhihu', '', NULL);
+INSERT INTO lu_tale.t_options (name, value, description) VALUES('social_weibo', 'https://weibo.com/', NULL);
+INSERT INTO lu_tale.t_options (name, value, description) VALUES('social_zhihu', 'https://www.zhihu.com/', NULL);
+
 
 -- ----------------------------
 -- Table structure for t_relationships
@@ -150,24 +151,6 @@ CREATE TABLE `t_relationships`  (
   `mid` int(10) UNSIGNED NOT NULL,
   PRIMARY KEY (`cid`, `mid`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of t_relationships
--- ----------------------------
-INSERT INTO `t_relationships` VALUES (27, 41);
-INSERT INTO `t_relationships` VALUES (27, 42);
-INSERT INTO `t_relationships` VALUES (27, 43);
-INSERT INTO `t_relationships` VALUES (27, 46);
-INSERT INTO `t_relationships` VALUES (28, 41);
-INSERT INTO `t_relationships` VALUES (28, 43);
-INSERT INTO `t_relationships` VALUES (29, 41);
-INSERT INTO `t_relationships` VALUES (29, 42);
-INSERT INTO `t_relationships` VALUES (29, 43);
-INSERT INTO `t_relationships` VALUES (30, 48);
-INSERT INTO `t_relationships` VALUES (31, 48);
-INSERT INTO `t_relationships` VALUES (32, 41);
-INSERT INTO `t_relationships` VALUES (32, 43);
-INSERT INTO `t_relationships` VALUES (33, 48);
 
 -- ----------------------------
 -- Table structure for t_users
