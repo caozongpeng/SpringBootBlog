@@ -49,12 +49,6 @@
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
         <!-- EhCache 相关 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -160,13 +154,6 @@
             <artifactId>qiniu-java-sdk</artifactId>
             <version>7.2.11</version>
         </dependency>
-
-        <!--热加载-->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-devtools</artifactId>-->
-            <!--<optional>true</optional>-->
-        <!--</dependency>-->
 
         <dependency>
             <groupId>javax.servlet</groupId>
