@@ -18,6 +18,7 @@ import com.wip.model.MetaDomain;
 import com.wip.model.RelationShipDomain;
 import com.wip.service.article.ContentService;
 import com.wip.service.meta.MetaService;
+import java.util.Collections;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -54,7 +55,7 @@ public class MetaServiceImpl implements MetaService {
             // 通过项目名和类型查找有没有存在的
             List<MetaDomain> metas = metaDao.getMetasByCond(metaCond);
             // 判断是否找到有相同的
-            if (null == metas || metas.size() ==0) {
+            if (CollectionUtils.isEmpty(metas)) {
                 MetaDomain metaDomain = new MetaDomain();
                 metaDomain.setName(name);
                 // 如果有mid代表需要更新
@@ -93,7 +94,7 @@ public class MetaServiceImpl implements MetaService {
             paraMap.put("limit", limit);
             return metaDao.selectFromSql(paraMap);
         }
-        return null;
+        return Collections.emptyList();
     }
 
     @Override

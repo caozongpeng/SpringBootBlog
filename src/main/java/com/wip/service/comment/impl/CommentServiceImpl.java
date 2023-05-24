@@ -63,7 +63,9 @@ public class CommentServiceImpl implements CommentService {
         if (null == comments) {
             msg = "评论对象为空";
         }
-
+        if (comments == null) {
+            throw BusinessException.withErrorCode("评论不能为空");
+        }
         if (StringUtils.isBlank(comments.getAuthor())) {
             comments.setAuthor("热心网友");
         }

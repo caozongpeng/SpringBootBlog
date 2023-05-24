@@ -92,7 +92,7 @@ public class BaseInterceptor implements HandlerInterceptor {
         if (request.getMethod().equals("GET")) {
             String csrfToken = UUID.UU64();
             // 默认存储30分钟
-            cache.hset(Types.CSRF_TOKEN.getType(), csrfToken, uri,30 * 60);
+            cache.hset(Types.CSRF_TOKEN.getType(), csrfToken, uri,30L * 60);
             request.setAttribute("_csrf_token", csrfToken);
         }
         // 返回true才会执行postHandle

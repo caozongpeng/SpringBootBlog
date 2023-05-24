@@ -21,12 +21,14 @@ import com.wip.model.MetaDomain;
 import com.wip.model.RelationShipDomain;
 import com.wip.service.article.ContentService;
 import com.wip.service.meta.MetaService;
+import java.util.Collections;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
@@ -111,8 +113,7 @@ public class ContentServiceImpl implements ContentService {
             throw BusinessException.withErrorCode(ErrorConstant.Common.PARAM_IS_EMPTY);
         PageHelper.startPage(pageNum,pageSize);
         List<ContentDomain> contents = contentDao.getArticleByCond(contentCond);
-        PageInfo<ContentDomain> pageInfo = new PageInfo<>(contents);
-        return pageInfo;
+        return new PageInfo<>(contents);
     }
 
     @Override
@@ -126,15 +127,13 @@ public class ContentServiceImpl implements ContentService {
 
         // 同时要删除该 文章下的所有评论
         List<CommentDomain> comments = commentDao.getCommentByCId(cid);
-        if (null != comments && comments.size() > 0) {
-            comments.forEach(comment -> {
-                commentDao.deleteComment(comment.getCoid());
-            });
+        if (null != comments && !comments.isEmpty()) {
+            comments.forEach(comment -> commentDao.deleteComment(comment.getCoid()));
         }
 
         // 删除标签和分类关联
         List<RelationShipDomain> relationShips = relationShipDao.getRelationShipByCid(cid);
-        if (null != relationShips && relationShips.size() > 0) {
+        if (!CollectionUtils.isEmpty(relationShips)) {
             relationShipDao.deleteRelationShipByCid(cid);
         }
 
@@ -163,9 +162,9 @@ public class ContentServiceImpl implements ContentService {
         if (null == tags)
             throw BusinessException.withErrorCode(ErrorConstant.Common.PARAM_IS_EMPTY);
         List<RelationShipDomain> relationShip = relationShipDao.getRelationShipByMid(tags.getMid());
-        if (null != relationShip && relationShip.size() > 0) {
+        if (!CollectionUtils.isEmpty(relationShip)) {
             return contentDao.getArticleByTags(relationShip);
         }
-        return null;
+        return Collections.emptyList();
     }
 }

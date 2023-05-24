@@ -8,7 +8,6 @@ import com.wip.model.UserDomain;
 import com.wip.service.log.LogService;
 import com.wip.service.user.UserService;
 import com.wip.utils.APIResponse;
-import com.wip.utils.GsonUtils;
 import com.wip.utils.TaleUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -83,7 +82,7 @@ public class AuthController extends BaseController {
             }
             LOGGER.error(String.valueOf(errorCount));
             // 设置缓存为10分钟
-            cache.set("login_error_count", errorCount, 10 * 60);
+            cache.set("login_error_count", errorCount, 10L * 60);
             String msg = "登录失败";
             if (e instanceof BusinessException) {
                 msg = e.getMessage();
